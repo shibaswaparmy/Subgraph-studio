@@ -1,0 +1,29 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: RootChain
+    network: goerli
+    source:
+      address: "0xBaD023cC90C0A25A6AfabF0cCaBc59b95Ab4aD07"
+      abi: RootChain
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - NewHeaderBlock
+        - OwnershipTransferred
+        - ResetHeaderBlock
+      abis:
+        - name: RootChain
+          file: ./abis/RootChain.json
+      eventHandlers:
+        - event: NewHeaderBlock(indexed address,indexed uint256,indexed uint256,uint256,uint256,bytes32)
+          handler: handleNewHeaderBlock
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ResetHeaderBlock(indexed address,indexed uint256)
+          handler: handleResetHeaderBlock
+      file: ./src/root-chain.ts
