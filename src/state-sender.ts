@@ -48,7 +48,7 @@ export function handleStateSynced(event: StateSyncedEvent): void {
   let entity = new StateSynced(
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   )
-  entity.id = event.params.id
+  entity.stateId = event.params.id
   entity.contractAddress = event.params.contractAddress
   entity.data = event.params.data
   entity.save()

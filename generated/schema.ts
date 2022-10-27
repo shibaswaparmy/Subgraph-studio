@@ -3226,13 +3226,13 @@ export class StateSynced extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get id(): BigInt {
-    let value = this.get("id");
+  get stateId(): BigInt {
+    let value = this.get("stateId");
     return value!.toBigInt();
   }
 
-  set id(value: BigInt) {
-    this.set("id", Value.fromBigInt(value));
+  set stateId(value: BigInt) {
+    this.set("stateId", Value.fromBigInt(value));
   }
 
   get contractAddress(): Bytes {

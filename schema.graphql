@@ -359,7 +359,7 @@ type RegistrationUpdated @entity {
 
 type StateSynced @entity {
   id: ID!
-  id: BigInt! # uint256
+  stateId: BigInt! # uint256
   contractAddress: Bytes! # address
   data: Bytes! # bytes
 }
