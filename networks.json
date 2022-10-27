@@ -2,6 +2,39 @@
   "goerli": {
     "Registry": {
       "address": "0x446eAA6Ca8B098D7adF6DB1778193111bfcf1c56"
+    },
+    "RootChain": {
+      "address": "0x86ea86DeBd4E219Da11Ce765D75B5C84EC0145b8"
+    },
+    "WithdrawManager": {
+      "address": "0xb71387F060d58bA9943619C08fA450Fbf6D20219"
+    },
+    "RootChainManager": {
+      "address": "0x8D2A3ac67E80374B9B73C55Da3eeF6B4a7E52757"
+    },
+    "StateSender": {
+      "address": "0xd8AeE982658f85e97A4f9004CB816E285402B652"
+    },
+    "StakingInfo": {
+      "address": "0x29F804b573C0df4423ABE9027dF2E53ACDb4C05b"
+    },
+    "EventsHub": {
+      "address": "0x774f7FA5A5675771331E33fbAf7f35d1bFfa7555"
+    },
+    "BoneToken": {
+      "address": "0x809bbf767883277f6fdB8f378489B259A02fD7a7"
+    },
+    "TestToken": {
+      "address": "0x3CE6097BF46bABD04BAc249c2a73891094289B5E"
+    },
+    "StakeManager": {
+      "address": "0x73e2564a79C63b0d6b72103591b1c99F01E2E462"
+    },
+    "ValidatorShare": {
+      "address": "0x3b8d3c4E1A770cC3223CDe5dad1632FB511A4075"
+    },
+    "DepositManager": {
+      "address": "0xc36925980cB180795cB5C9802333D68a9916D845"
     }
   }
 }

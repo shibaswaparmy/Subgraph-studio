@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -10,7 +10,7 @@ dataSources:
       abi: Registry
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - ContractMapUpdated
@@ -36,3 +36,376 @@ dataSources:
         - event: TokenMapped(indexed address,indexed address)
           handler: handleTokenMapped
       file: ./src/registry.ts
+  - kind: ethereum
+    name: RootChain
+    network: goerli
+    source:
+      address: "0x86ea86DeBd4E219Da11Ce765D75B5C84EC0145b8"
+      abi: RootChain
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - NewHeaderBlock
+        - OwnershipTransferred
+        - ResetHeaderBlock
+      abis:
+        - name: RootChain
+          file: ./abis/RootChain.json
+      eventHandlers:
+        - event: NewHeaderBlock(indexed address,indexed uint256,indexed
+            uint256,uint256,uint256,bytes32)
+          handler: handleNewHeaderBlock
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ResetHeaderBlock(indexed address,indexed uint256)
+          handler: handleResetHeaderBlock
+      file: ./src/root-chain.ts
+  - kind: ethereum
+    name: WithdrawManager
+    network: goerli
+    source:
+      address: "0xb71387F060d58bA9943619C08fA450Fbf6D20219"
+      abi: WithdrawManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ExitCancelled
+        - ExitPeriodUpdate
+        - ExitStarted
+        - ExitUpdated
+        - WithdrawManagerOwnershipTransferred
+        - Withdraw
+      abis:
+        - name: WithdrawManager
+          file: ./abis/WithdrawManager.json
+      eventHandlers:
+        - event: ExitCancelled(indexed uint256)
+          handler: handleExitCancelled
+        - event: ExitPeriodUpdate(indexed uint256,indexed uint256)
+          handler: handleExitPeriodUpdate
+        - event: ExitStarted(indexed address,indexed uint256,indexed address,uint256,bool)
+          handler: handleExitStarted
+        - event: ExitUpdated(indexed uint256,indexed uint256,address)
+          handler: handleExitUpdated
+        - event: WithdrawManagerOwnershipTransferred(indexed address,indexed address)
+          handler: handleWithdrawManagerOwnershipTransferred
+        - event: Withdraw(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleWithdraw
+      file: ./src/withdraw-manager.ts
+  - kind: ethereum
+    name: RootChainManager
+    network: goerli
+    source:
+      address: "0x8D2A3ac67E80374B9B73C55Da3eeF6B4a7E52757"
+      abi: RootChainManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - MetaTransactionExecuted
+        - PredicateRegistered
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - RootChainManagerTokenMapped
+      abis:
+        - name: RootChainManager
+          file: ./abis/RootChainManager.json
+      eventHandlers:
+        - event: MetaTransactionExecuted(address,address,bytes)
+          handler: handleMetaTransactionExecuted
+        - event: PredicateRegistered(indexed bytes32,indexed address)
+          handler: handlePredicateRegistered
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: RootChainManagerTokenMapped(indexed address,indexed address,indexed bytes32)
+          handler: handleRootChainManagerTokenMapped
+      file: ./src/root-chain-manager.ts
+  - kind: ethereum
+    name: StateSender
+    network: goerli
+    source:
+      address: "0xd8AeE982658f85e97A4f9004CB816E285402B652"
+      abi: StateSender
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - NewRegistration
+        - StateSenderOwnershipTransferred
+        - RegistrationUpdated
+        - StateSynced
+      abis:
+        - name: StateSender
+          file: ./abis/StateSender.json
+      eventHandlers:
+        - event: NewRegistration(indexed address,indexed address,indexed address)
+          handler: handleNewRegistration
+        - event: StateSenderOwnershipTransferred(indexed address,indexed address)
+          handler: handleStateSenderOwnershipTransferred
+        - event: RegistrationUpdated(indexed address,indexed address,indexed address)
+          handler: handleRegistrationUpdated
+        - event: StateSynced(indexed uint256,indexed address,bytes)
+          handler: handleStateSynced
+      file: ./src/state-sender.ts
+  - kind: ethereum
+    name: StakingInfo
+    network: goerli
+    source:
+      address: "0x29F804b573C0df4423ABE9027dF2E53ACDb4C05b"
+      abi: StakingInfo
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ClaimFee
+        - ClaimRewards
+        - ConfirmAuction
+        - DelegatorClaimedRewards
+        - DelegatorRestaked
+        - DelegatorUnstaked
+        - DynastyValueChange
+        - Jailed
+        - StakingInfoOwnershipTransferred
+        - ProposerBonusChange
+        - Restaked
+        - RewardUpdate
+        - ShareBurned
+        - ShareMinted
+        - SignerChange
+        - Slashed
+        - StakeUpdate
+        - Staked
+        - StartAuction
+        - ThresholdChange
+        - TopUpFee
+        - UnJailed
+        - UnstakeInit
+        - Unstaked
+        - UpdateCommissionRate
+      abis:
+        - name: StakingInfo
+          file: ./abis/StakingInfo.json
+      eventHandlers:
+        - event: ClaimFee(indexed address,indexed uint256)
+          handler: handleClaimFee
+        - event: ClaimRewards(indexed uint256,indexed uint256,indexed uint256)
+          handler: handleClaimRewards
+        - event: ConfirmAuction(indexed uint256,indexed uint256,indexed uint256)
+          handler: handleConfirmAuction
+        - event: DelegatorClaimedRewards(indexed uint256,indexed address,indexed uint256)
+          handler: handleDelegatorClaimedRewards
+        - event: DelegatorRestaked(indexed uint256,indexed address,indexed uint256)
+          handler: handleDelegatorRestaked
+        - event: DelegatorUnstaked(indexed uint256,indexed address,uint256)
+          handler: handleDelegatorUnstaked
+        - event: DynastyValueChange(uint256,uint256)
+          handler: handleDynastyValueChange
+        - event: Jailed(indexed uint256,indexed uint256,indexed address)
+          handler: handleJailed
+        - event: StakingInfoOwnershipTransferred(indexed address,indexed address)
+          handler: handleStakingInfoOwnershipTransferred
+        - event: ProposerBonusChange(uint256,uint256)
+          handler: handleProposerBonusChange
+        - event: Restaked(indexed uint256,uint256,uint256)
+          handler: handleRestaked
+        - event: RewardUpdate(uint256,uint256)
+          handler: handleRewardUpdate
+        - event: ShareBurned(indexed uint256,indexed address,indexed uint256,uint256)
+          handler: handleShareBurned
+        - event: ShareMinted(indexed uint256,indexed address,indexed uint256,uint256)
+          handler: handleShareMinted
+        - event: SignerChange(indexed uint256,uint256,indexed address,indexed address,bytes)
+          handler: handleSignerChange
+        - event: Slashed(indexed uint256,indexed uint256)
+          handler: handleSlashed
+        - event: StakeUpdate(indexed uint256,indexed uint256,indexed uint256)
+          handler: handleStakeUpdate
+        - event: Staked(indexed address,indexed uint256,uint256,indexed
+            uint256,uint256,uint256,bytes)
+          handler: handleStaked
+        - event: StartAuction(indexed uint256,indexed uint256,indexed uint256)
+          handler: handleStartAuction
+        - event: ThresholdChange(uint256,uint256)
+          handler: handleThresholdChange
+        - event: TopUpFee(indexed address,indexed uint256)
+          handler: handleTopUpFee
+        - event: UnJailed(indexed uint256,indexed address)
+          handler: handleUnJailed
+        - event: UnstakeInit(indexed address,indexed uint256,uint256,uint256,indexed uint256)
+          handler: handleUnstakeInit
+        - event: Unstaked(indexed address,indexed uint256,uint256,uint256)
+          handler: handleUnstaked
+        - event: UpdateCommissionRate(indexed uint256,indexed uint256,indexed uint256)
+          handler: handleUpdateCommissionRate
+      file: ./src/staking-info.ts
+  - kind: ethereum
+    name: EventsHub
+    network: goerli
+    source:
+      address: "0x774f7FA5A5675771331E33fbAf7f35d1bFfa7555"
+      abi: EventsHub
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - DelegatorUnstakeWithId
+        - RewardParams
+        - ShareBurnedWithId
+        - EventsHubUpdateCommissionRate
+      abis:
+        - name: EventsHub
+          file: ./abis/EventsHub.json
+      eventHandlers:
+        - event: DelegatorUnstakeWithId(indexed uint256,indexed address,uint256,uint256)
+          handler: handleDelegatorUnstakeWithId
+        - event: RewardParams(uint256,uint256,uint256)
+          handler: handleRewardParams
+        - event: ShareBurnedWithId(indexed uint256,indexed address,indexed uint256,uint256,uint256)
+          handler: handleShareBurnedWithId
+        - event: EventsHubUpdateCommissionRate(indexed uint256,indexed uint256,indexed uint256)
+          handler: handleEventsHubUpdateCommissionRate
+      file: ./src/events-hub.ts
+  - kind: ethereum
+    name: BoneToken
+    network: goerli
+    source:
+      address: "0x809bbf767883277f6fdB8f378489B259A02fD7a7"
+      abi: BoneToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - DelegateChanged
+        - DelegateVotesChanged
+        - BoneTokenOwnershipTransferred
+        - Transfer
+      abis:
+        - name: BoneToken
+          file: ./abis/BoneToken.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: DelegateChanged(indexed address,indexed address,indexed address)
+          handler: handleDelegateChanged
+        - event: DelegateVotesChanged(indexed address,uint256,uint256)
+          handler: handleDelegateVotesChanged
+        - event: BoneTokenOwnershipTransferred(indexed address,indexed address)
+          handler: handleBoneTokenOwnershipTransferred
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/bone-token.ts
+  - kind: ethereum
+    name: TestToken
+    network: goerli
+    source:
+      address: "0x3CE6097BF46bABD04BAc249c2a73891094289B5E"
+      abi: TestToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - TestTokenApproval
+        - MinterAdded
+        - MinterRemoved
+        - TestTokenTransfer
+      abis:
+        - name: TestToken
+          file: ./abis/TestToken.json
+      eventHandlers:
+        - event: TestTokenApproval(indexed address,indexed address,uint256)
+          handler: handleTestTokenApproval
+        - event: MinterAdded(indexed address)
+          handler: handleMinterAdded
+        - event: MinterRemoved(indexed address)
+          handler: handleMinterRemoved
+        - event: TestTokenTransfer(indexed address,indexed address,uint256)
+          handler: handleTestTokenTransfer
+      file: ./src/test-token.ts
+  - kind: ethereum
+    name: StakeManager
+    network: goerli
+    source:
+      address: "0x73e2564a79C63b0d6b72103591b1c99F01E2E462"
+      abi: StakeManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - StakeManagerOwnershipTransferred
+        - RootChainChanged
+      abis:
+        - name: StakeManager
+          file: ./abis/StakeManager.json
+      eventHandlers:
+        - event: StakeManagerOwnershipTransferred(indexed address,indexed address)
+          handler: handleStakeManagerOwnershipTransferred
+        - event: RootChainChanged(indexed address,indexed address)
+          handler: handleRootChainChanged
+      file: ./src/stake-manager.ts
+  - kind: ethereum
+    name: ValidatorShare
+    network: goerli
+    source:
+      address: "0x3b8d3c4E1A770cC3223CDe5dad1632FB511A4075"
+      abi: ValidatorShare
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ValidatorShareApproval
+        - ValidatorShareOwnershipTransferred
+        - ValidatorShareTransfer
+      abis:
+        - name: ValidatorShare
+          file: ./abis/ValidatorShare.json
+      eventHandlers:
+        - event: ValidatorShareApproval(indexed address,indexed address,uint256)
+          handler: handleValidatorShareApproval
+        - event: ValidatorShareOwnershipTransferred(indexed address,indexed address)
+          handler: handleValidatorShareOwnershipTransferred
+        - event: ValidatorShareTransfer(indexed address,indexed address,uint256)
+          handler: handleValidatorShareTransfer
+      file: ./src/validator-share.ts
+  - kind: ethereum
+    name: DepositManager
+    network: goerli
+    source:
+      address: "0xc36925980cB180795cB5C9802333D68a9916D845"
+      abi: DepositManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - MaxErc20DepositUpdate
+        - NewDepositBlock
+        - DepositManagerOwnershipTransferred
+      abis:
+        - name: DepositManager
+          file: ./abis/DepositManager.json
+      eventHandlers:
+        - event: MaxErc20DepositUpdate(indexed uint256,indexed uint256)
+          handler: handleMaxErc20DepositUpdate
+        - event: NewDepositBlock(indexed address,indexed address,uint256,uint256)
+          handler: handleNewDepositBlock
+        - event: DepositManagerOwnershipTransferred(indexed address,indexed address)
+          handler: handleDepositManagerOwnershipTransferred
+      file: ./src/deposit-manager.ts
