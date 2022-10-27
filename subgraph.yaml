@@ -1,0 +1,38 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Registry
+    network: goerli
+    source:
+      address: "0x446eAA6Ca8B098D7adF6DB1778193111bfcf1c56"
+      abi: Registry
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ContractMapUpdated
+        - PredicateAdded
+        - PredicateRemoved
+        - ProofValidatorAdded
+        - ProofValidatorRemoved
+        - TokenMapped
+      abis:
+        - name: Registry
+          file: ./abis/Registry.json
+      eventHandlers:
+        - event: ContractMapUpdated(indexed bytes32,indexed address,indexed address)
+          handler: handleContractMapUpdated
+        - event: PredicateAdded(indexed address,indexed address)
+          handler: handlePredicateAdded
+        - event: PredicateRemoved(indexed address,indexed address)
+          handler: handlePredicateRemoved
+        - event: ProofValidatorAdded(indexed address,indexed address)
+          handler: handleProofValidatorAdded
+        - event: ProofValidatorRemoved(indexed address,indexed address)
+          handler: handleProofValidatorRemoved
+        - event: TokenMapped(indexed address,indexed address)
+          handler: handleTokenMapped
+      file: ./src/registry.ts
