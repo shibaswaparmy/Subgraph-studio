@@ -1,0 +1,47 @@
+{
+  "network": "rinkeby",
+  "subgraphId": "QmQEGwBWZseaBtzDQdqJrTBey9KFHgzQ7AA9SSjY6oBGHe",
+  "graftingStartBlock": 2815580,
+  "contracts": {
+    "rootChain": {
+      "address": "0xb9d706E4733F42094EF9a0f0D02Ed833d24E2390",
+      "startBlock": 10611124
+    },
+    "stateSender": {
+      "address": "0x3566f9A10087DF9270459A41A16043d09e521a73",
+      "startBlock": 10611137
+    },
+    "withdrawManager": {
+      "address": "0x134bA364Fad28A0E00F8fbdF68e36b9aF51B4388",
+      "startBlock": 10611142
+    },
+    "rootChainManager": {
+      "address": "0x100970506beC65e480F2D287b0a098F174857658",
+      "startBlock": 10611497
+    },
+    "stakingInfo": {
+      "address": "0xd6c3B8Cf2FF22E3b6140aE6c87dd697f6f06825D",
+      "startBlock": 10611126
+    },
+    "stakingNft": {
+      "address": "0xD451FE1725897be7f461F0b799F0DF185C3C63bC",
+      "startBlock": 10611127
+    },
+    "maticTokenContract": {
+      "address": "0x9DB3D91f9C3D81a29E2A8B1FFDE96Cca87Fc9655",
+      "startBlock": 10611128
+    },
+    "eventsHub": {
+      "address": "0xB915C38820afCe4356E01053095fc372122CBA5E",
+      "startBlock": 10611144
+    },
+    "registry": {
+      "address": "0x09e197f2dEdaBc21Eb4b6ca14Bc5Df87C8c9D143",
+      "startBlock": 10611122
+    },
+    "decoderForPoSPortalData": {
+      "address": "0x8d660455AE7DA2daa501B21cb607853b6AB7D079",
+      "startBlock": 10611122
+    }
+  }
+}

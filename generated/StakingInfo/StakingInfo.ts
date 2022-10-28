@@ -210,16 +210,16 @@ export class Jailed__Params {
   }
 }
 
-export class StakingInfoOwnershipTransferred extends ethereum.Event {
-  get params(): StakingInfoOwnershipTransferred__Params {
-    return new StakingInfoOwnershipTransferred__Params(this);
+export class OwnershipTransferred extends ethereum.Event {
+  get params(): OwnershipTransferred__Params {
+    return new OwnershipTransferred__Params(this);
   }
 }
 
-export class StakingInfoOwnershipTransferred__Params {
-  _event: StakingInfoOwnershipTransferred;
+export class OwnershipTransferred__Params {
+  _event: OwnershipTransferred;
 
-  constructor(event: StakingInfoOwnershipTransferred) {
+  constructor(event: OwnershipTransferred) {
     this._event = event;
   }
 
@@ -733,95 +733,6 @@ export class StakingInfo extends ethereum.SmartContract {
     return new StakingInfo("StakingInfo", address);
   }
 
-  getAccountStateRoot(): Bytes {
-    let result = super.call(
-      "getAccountStateRoot",
-      "getAccountStateRoot():(bytes32)",
-      []
-    );
-
-    return result[0].toBytes();
-  }
-
-  try_getAccountStateRoot(): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "getAccountStateRoot",
-      "getAccountStateRoot():(bytes32)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
-  getStakerDetails(validatorId: BigInt): StakingInfo__getStakerDetailsResult {
-    let result = super.call(
-      "getStakerDetails",
-      "getStakerDetails(uint256):(uint256,uint256,uint256,uint256,address,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(validatorId)]
-    );
-
-    return new StakingInfo__getStakerDetailsResult(
-      result[0].toBigInt(),
-      result[1].toBigInt(),
-      result[2].toBigInt(),
-      result[3].toBigInt(),
-      result[4].toAddress(),
-      result[5].toBigInt()
-    );
-  }
-
-  try_getStakerDetails(
-    validatorId: BigInt
-  ): ethereum.CallResult<StakingInfo__getStakerDetailsResult> {
-    let result = super.tryCall(
-      "getStakerDetails",
-      "getStakerDetails(uint256):(uint256,uint256,uint256,uint256,address,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(validatorId)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new StakingInfo__getStakerDetailsResult(
-        value[0].toBigInt(),
-        value[1].toBigInt(),
-        value[2].toBigInt(),
-        value[3].toBigInt(),
-        value[4].toAddress(),
-        value[5].toBigInt()
-      )
-    );
-  }
-
-  getValidatorContractAddress(validatorId: BigInt): Address {
-    let result = super.call(
-      "getValidatorContractAddress",
-      "getValidatorContractAddress(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(validatorId)]
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getValidatorContractAddress(
-    validatorId: BigInt
-  ): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getValidatorContractAddress",
-      "getValidatorContractAddress(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(validatorId)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
   isOwner(): boolean {
     let result = super.call("isOwner", "isOwner():(bool)", []);
 
@@ -867,6 +778,70 @@ export class StakingInfo extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  validatorNonce(param0: BigInt): BigInt {
+    let result = super.call(
+      "validatorNonce",
+      "validatorNonce(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_validatorNonce(param0: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "validatorNonce",
+      "validatorNonce(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getStakerDetails(validatorId: BigInt): StakingInfo__getStakerDetailsResult {
+    let result = super.call(
+      "getStakerDetails",
+      "getStakerDetails(uint256):(uint256,uint256,uint256,uint256,address,uint256)",
+      [ethereum.Value.fromUnsignedBigInt(validatorId)]
+    );
+
+    return new StakingInfo__getStakerDetailsResult(
+      result[0].toBigInt(),
+      result[1].toBigInt(),
+      result[2].toBigInt(),
+      result[3].toBigInt(),
+      result[4].toAddress(),
+      result[5].toBigInt()
+    );
+  }
+
+  try_getStakerDetails(
+    validatorId: BigInt
+  ): ethereum.CallResult<StakingInfo__getStakerDetailsResult> {
+    let result = super.tryCall(
+      "getStakerDetails",
+      "getStakerDetails(uint256):(uint256,uint256,uint256,uint256,address,uint256)",
+      [ethereum.Value.fromUnsignedBigInt(validatorId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new StakingInfo__getStakerDetailsResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt(),
+        value[3].toBigInt(),
+        value[4].toAddress(),
+        value[5].toBigInt()
+      )
+    );
+  }
+
   totalValidatorStake(validatorId: BigInt): BigInt {
     let result = super.call(
       "totalValidatorStake",
@@ -890,27 +865,52 @@ export class StakingInfo extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  validatorNonce(param0: BigInt): BigInt {
+  getAccountStateRoot(): Bytes {
     let result = super.call(
-      "validatorNonce",
-      "validatorNonce(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      "getAccountStateRoot",
+      "getAccountStateRoot():(bytes32)",
+      []
     );
 
-    return result[0].toBigInt();
+    return result[0].toBytes();
   }
 
-  try_validatorNonce(param0: BigInt): ethereum.CallResult<BigInt> {
+  try_getAccountStateRoot(): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
-      "validatorNonce",
-      "validatorNonce(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      "getAccountStateRoot",
+      "getAccountStateRoot():(bytes32)",
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  getValidatorContractAddress(validatorId: BigInt): Address {
+    let result = super.call(
+      "getValidatorContractAddress",
+      "getValidatorContractAddress(uint256):(address)",
+      [ethereum.Value.fromUnsignedBigInt(validatorId)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getValidatorContractAddress(
+    validatorId: BigInt
+  ): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getValidatorContractAddress",
+      "getValidatorContractAddress(uint256):(address)",
+      [ethereum.Value.fromUnsignedBigInt(validatorId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 }
 
@@ -944,20 +944,160 @@ export class ConstructorCall__Outputs {
   }
 }
 
-export class LogClaimFeeCall extends ethereum.Call {
-  get inputs(): LogClaimFeeCall__Inputs {
-    return new LogClaimFeeCall__Inputs(this);
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
   }
 
-  get outputs(): LogClaimFeeCall__Outputs {
-    return new LogClaimFeeCall__Outputs(this);
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
   }
 }
 
-export class LogClaimFeeCall__Inputs {
-  _call: LogClaimFeeCall;
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
 
-  constructor(call: LogClaimFeeCall) {
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateNonceCall extends ethereum.Call {
+  get inputs(): UpdateNonceCall__Inputs {
+    return new UpdateNonceCall__Inputs(this);
+  }
+
+  get outputs(): UpdateNonceCall__Outputs {
+    return new UpdateNonceCall__Outputs(this);
+  }
+}
+
+export class UpdateNonceCall__Inputs {
+  _call: UpdateNonceCall;
+
+  constructor(call: UpdateNonceCall) {
+    this._call = call;
+  }
+
+  get validatorIds(): Array<BigInt> {
+    return this._call.inputValues[0].value.toBigIntArray();
+  }
+
+  get nonces(): Array<BigInt> {
+    return this._call.inputValues[1].value.toBigIntArray();
+  }
+}
+
+export class UpdateNonceCall__Outputs {
+  _call: UpdateNonceCall;
+
+  constructor(call: UpdateNonceCall) {
+    this._call = call;
+  }
+}
+
+export class LogStakedCall extends ethereum.Call {
+  get inputs(): LogStakedCall__Inputs {
+    return new LogStakedCall__Inputs(this);
+  }
+
+  get outputs(): LogStakedCall__Outputs {
+    return new LogStakedCall__Outputs(this);
+  }
+}
+
+export class LogStakedCall__Inputs {
+  _call: LogStakedCall;
+
+  constructor(call: LogStakedCall) {
+    this._call = call;
+  }
+
+  get signer(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get signerPubkey(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get activationEpoch(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get total(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class LogStakedCall__Outputs {
+  _call: LogStakedCall;
+
+  constructor(call: LogStakedCall) {
+    this._call = call;
+  }
+}
+
+export class LogUnstakedCall extends ethereum.Call {
+  get inputs(): LogUnstakedCall__Inputs {
+    return new LogUnstakedCall__Inputs(this);
+  }
+
+  get outputs(): LogUnstakedCall__Outputs {
+    return new LogUnstakedCall__Outputs(this);
+  }
+}
+
+export class LogUnstakedCall__Inputs {
+  _call: LogUnstakedCall;
+
+  constructor(call: LogUnstakedCall) {
     this._call = call;
   }
 
@@ -965,15 +1105,417 @@ export class LogClaimFeeCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get fee(): BigInt {
+  get validatorId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get total(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class LogUnstakedCall__Outputs {
+  _call: LogUnstakedCall;
+
+  constructor(call: LogUnstakedCall) {
+    this._call = call;
+  }
+}
+
+export class LogUnstakeInitCall extends ethereum.Call {
+  get inputs(): LogUnstakeInitCall__Inputs {
+    return new LogUnstakeInitCall__Inputs(this);
+  }
+
+  get outputs(): LogUnstakeInitCall__Outputs {
+    return new LogUnstakeInitCall__Outputs(this);
+  }
+}
+
+export class LogUnstakeInitCall__Inputs {
+  _call: LogUnstakeInitCall;
+
+  constructor(call: LogUnstakeInitCall) {
+    this._call = call;
+  }
+
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get deactivationEpoch(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class LogUnstakeInitCall__Outputs {
+  _call: LogUnstakeInitCall;
+
+  constructor(call: LogUnstakeInitCall) {
+    this._call = call;
+  }
+}
+
+export class LogSignerChangeCall extends ethereum.Call {
+  get inputs(): LogSignerChangeCall__Inputs {
+    return new LogSignerChangeCall__Inputs(this);
+  }
+
+  get outputs(): LogSignerChangeCall__Outputs {
+    return new LogSignerChangeCall__Outputs(this);
+  }
+}
+
+export class LogSignerChangeCall__Inputs {
+  _call: LogSignerChangeCall;
+
+  constructor(call: LogSignerChangeCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get oldSigner(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get newSigner(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get signerPubkey(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
+}
+
+export class LogSignerChangeCall__Outputs {
+  _call: LogSignerChangeCall;
+
+  constructor(call: LogSignerChangeCall) {
+    this._call = call;
+  }
+}
+
+export class LogRestakedCall extends ethereum.Call {
+  get inputs(): LogRestakedCall__Inputs {
+    return new LogRestakedCall__Inputs(this);
+  }
+
+  get outputs(): LogRestakedCall__Outputs {
+    return new LogRestakedCall__Outputs(this);
+  }
+}
+
+export class LogRestakedCall__Inputs {
+  _call: LogRestakedCall;
+
+  constructor(call: LogRestakedCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get total(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class LogRestakedCall__Outputs {
+  _call: LogRestakedCall;
+
+  constructor(call: LogRestakedCall) {
+    this._call = call;
+  }
+}
+
+export class LogJailedCall extends ethereum.Call {
+  get inputs(): LogJailedCall__Inputs {
+    return new LogJailedCall__Inputs(this);
+  }
+
+  get outputs(): LogJailedCall__Outputs {
+    return new LogJailedCall__Outputs(this);
+  }
+}
+
+export class LogJailedCall__Inputs {
+  _call: LogJailedCall;
+
+  constructor(call: LogJailedCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get exitEpoch(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get signer(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+}
+
+export class LogJailedCall__Outputs {
+  _call: LogJailedCall;
+
+  constructor(call: LogJailedCall) {
+    this._call = call;
+  }
+}
+
+export class LogUnjailedCall extends ethereum.Call {
+  get inputs(): LogUnjailedCall__Inputs {
+    return new LogUnjailedCall__Inputs(this);
+  }
+
+  get outputs(): LogUnjailedCall__Outputs {
+    return new LogUnjailedCall__Outputs(this);
+  }
+}
+
+export class LogUnjailedCall__Inputs {
+  _call: LogUnjailedCall;
+
+  constructor(call: LogUnjailedCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get signer(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class LogUnjailedCall__Outputs {
+  _call: LogUnjailedCall;
+
+  constructor(call: LogUnjailedCall) {
+    this._call = call;
+  }
+}
+
+export class LogSlashedCall extends ethereum.Call {
+  get inputs(): LogSlashedCall__Inputs {
+    return new LogSlashedCall__Inputs(this);
+  }
+
+  get outputs(): LogSlashedCall__Outputs {
+    return new LogSlashedCall__Outputs(this);
+  }
+}
+
+export class LogSlashedCall__Inputs {
+  _call: LogSlashedCall;
+
+  constructor(call: LogSlashedCall) {
+    this._call = call;
+  }
+
+  get nonce(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get amount(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
 }
 
-export class LogClaimFeeCall__Outputs {
-  _call: LogClaimFeeCall;
+export class LogSlashedCall__Outputs {
+  _call: LogSlashedCall;
 
-  constructor(call: LogClaimFeeCall) {
+  constructor(call: LogSlashedCall) {
+    this._call = call;
+  }
+}
+
+export class LogThresholdChangeCall extends ethereum.Call {
+  get inputs(): LogThresholdChangeCall__Inputs {
+    return new LogThresholdChangeCall__Inputs(this);
+  }
+
+  get outputs(): LogThresholdChangeCall__Outputs {
+    return new LogThresholdChangeCall__Outputs(this);
+  }
+}
+
+export class LogThresholdChangeCall__Inputs {
+  _call: LogThresholdChangeCall;
+
+  constructor(call: LogThresholdChangeCall) {
+    this._call = call;
+  }
+
+  get newThreshold(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get oldThreshold(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class LogThresholdChangeCall__Outputs {
+  _call: LogThresholdChangeCall;
+
+  constructor(call: LogThresholdChangeCall) {
+    this._call = call;
+  }
+}
+
+export class LogDynastyValueChangeCall extends ethereum.Call {
+  get inputs(): LogDynastyValueChangeCall__Inputs {
+    return new LogDynastyValueChangeCall__Inputs(this);
+  }
+
+  get outputs(): LogDynastyValueChangeCall__Outputs {
+    return new LogDynastyValueChangeCall__Outputs(this);
+  }
+}
+
+export class LogDynastyValueChangeCall__Inputs {
+  _call: LogDynastyValueChangeCall;
+
+  constructor(call: LogDynastyValueChangeCall) {
+    this._call = call;
+  }
+
+  get newDynasty(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get oldDynasty(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class LogDynastyValueChangeCall__Outputs {
+  _call: LogDynastyValueChangeCall;
+
+  constructor(call: LogDynastyValueChangeCall) {
+    this._call = call;
+  }
+}
+
+export class LogProposerBonusChangeCall extends ethereum.Call {
+  get inputs(): LogProposerBonusChangeCall__Inputs {
+    return new LogProposerBonusChangeCall__Inputs(this);
+  }
+
+  get outputs(): LogProposerBonusChangeCall__Outputs {
+    return new LogProposerBonusChangeCall__Outputs(this);
+  }
+}
+
+export class LogProposerBonusChangeCall__Inputs {
+  _call: LogProposerBonusChangeCall;
+
+  constructor(call: LogProposerBonusChangeCall) {
+    this._call = call;
+  }
+
+  get newProposerBonus(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get oldProposerBonus(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class LogProposerBonusChangeCall__Outputs {
+  _call: LogProposerBonusChangeCall;
+
+  constructor(call: LogProposerBonusChangeCall) {
+    this._call = call;
+  }
+}
+
+export class LogRewardUpdateCall extends ethereum.Call {
+  get inputs(): LogRewardUpdateCall__Inputs {
+    return new LogRewardUpdateCall__Inputs(this);
+  }
+
+  get outputs(): LogRewardUpdateCall__Outputs {
+    return new LogRewardUpdateCall__Outputs(this);
+  }
+}
+
+export class LogRewardUpdateCall__Inputs {
+  _call: LogRewardUpdateCall;
+
+  constructor(call: LogRewardUpdateCall) {
+    this._call = call;
+  }
+
+  get newReward(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get oldReward(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class LogRewardUpdateCall__Outputs {
+  _call: LogRewardUpdateCall;
+
+  constructor(call: LogRewardUpdateCall) {
+    this._call = call;
+  }
+}
+
+export class LogStakeUpdateCall extends ethereum.Call {
+  get inputs(): LogStakeUpdateCall__Inputs {
+    return new LogStakeUpdateCall__Inputs(this);
+  }
+
+  get outputs(): LogStakeUpdateCall__Outputs {
+    return new LogStakeUpdateCall__Outputs(this);
+  }
+}
+
+export class LogStakeUpdateCall__Inputs {
+  _call: LogStakeUpdateCall;
+
+  constructor(call: LogStakeUpdateCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class LogStakeUpdateCall__Outputs {
+  _call: LogStakeUpdateCall;
+
+  constructor(call: LogStakeUpdateCall) {
     this._call = call;
   }
 }
@@ -1016,6 +1558,44 @@ export class LogClaimRewardsCall__Outputs {
   }
 }
 
+export class LogStartAuctionCall extends ethereum.Call {
+  get inputs(): LogStartAuctionCall__Inputs {
+    return new LogStartAuctionCall__Inputs(this);
+  }
+
+  get outputs(): LogStartAuctionCall__Outputs {
+    return new LogStartAuctionCall__Outputs(this);
+  }
+}
+
+export class LogStartAuctionCall__Inputs {
+  _call: LogStartAuctionCall;
+
+  constructor(call: LogStartAuctionCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get auctionAmount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class LogStartAuctionCall__Outputs {
+  _call: LogStartAuctionCall;
+
+  constructor(call: LogStartAuctionCall) {
+    this._call = call;
+  }
+}
+
 export class LogConfirmAuctionCall extends ethereum.Call {
   get inputs(): LogConfirmAuctionCall__Inputs {
     return new LogConfirmAuctionCall__Inputs(this);
@@ -1050,6 +1630,158 @@ export class LogConfirmAuctionCall__Outputs {
   _call: LogConfirmAuctionCall;
 
   constructor(call: LogConfirmAuctionCall) {
+    this._call = call;
+  }
+}
+
+export class LogTopUpFeeCall extends ethereum.Call {
+  get inputs(): LogTopUpFeeCall__Inputs {
+    return new LogTopUpFeeCall__Inputs(this);
+  }
+
+  get outputs(): LogTopUpFeeCall__Outputs {
+    return new LogTopUpFeeCall__Outputs(this);
+  }
+}
+
+export class LogTopUpFeeCall__Inputs {
+  _call: LogTopUpFeeCall;
+
+  constructor(call: LogTopUpFeeCall) {
+    this._call = call;
+  }
+
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get fee(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class LogTopUpFeeCall__Outputs {
+  _call: LogTopUpFeeCall;
+
+  constructor(call: LogTopUpFeeCall) {
+    this._call = call;
+  }
+}
+
+export class LogClaimFeeCall extends ethereum.Call {
+  get inputs(): LogClaimFeeCall__Inputs {
+    return new LogClaimFeeCall__Inputs(this);
+  }
+
+  get outputs(): LogClaimFeeCall__Outputs {
+    return new LogClaimFeeCall__Outputs(this);
+  }
+}
+
+export class LogClaimFeeCall__Inputs {
+  _call: LogClaimFeeCall;
+
+  constructor(call: LogClaimFeeCall) {
+    this._call = call;
+  }
+
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get fee(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class LogClaimFeeCall__Outputs {
+  _call: LogClaimFeeCall;
+
+  constructor(call: LogClaimFeeCall) {
+    this._call = call;
+  }
+}
+
+export class LogShareMintedCall extends ethereum.Call {
+  get inputs(): LogShareMintedCall__Inputs {
+    return new LogShareMintedCall__Inputs(this);
+  }
+
+  get outputs(): LogShareMintedCall__Outputs {
+    return new LogShareMintedCall__Outputs(this);
+  }
+}
+
+export class LogShareMintedCall__Inputs {
+  _call: LogShareMintedCall;
+
+  constructor(call: LogShareMintedCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get user(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get tokens(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class LogShareMintedCall__Outputs {
+  _call: LogShareMintedCall;
+
+  constructor(call: LogShareMintedCall) {
+    this._call = call;
+  }
+}
+
+export class LogShareBurnedCall extends ethereum.Call {
+  get inputs(): LogShareBurnedCall__Inputs {
+    return new LogShareBurnedCall__Inputs(this);
+  }
+
+  get outputs(): LogShareBurnedCall__Outputs {
+    return new LogShareBurnedCall__Outputs(this);
+  }
+}
+
+export class LogShareBurnedCall__Inputs {
+  _call: LogShareBurnedCall;
+
+  constructor(call: LogShareBurnedCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get user(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get tokens(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class LogShareBurnedCall__Outputs {
+  _call: LogShareBurnedCall;
+
+  constructor(call: LogShareBurnedCall) {
     this._call = call;
   }
 }
@@ -1168,648 +1900,6 @@ export class LogDelegatorUnstakedCall__Outputs {
   }
 }
 
-export class LogDynastyValueChangeCall extends ethereum.Call {
-  get inputs(): LogDynastyValueChangeCall__Inputs {
-    return new LogDynastyValueChangeCall__Inputs(this);
-  }
-
-  get outputs(): LogDynastyValueChangeCall__Outputs {
-    return new LogDynastyValueChangeCall__Outputs(this);
-  }
-}
-
-export class LogDynastyValueChangeCall__Inputs {
-  _call: LogDynastyValueChangeCall;
-
-  constructor(call: LogDynastyValueChangeCall) {
-    this._call = call;
-  }
-
-  get newDynasty(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get oldDynasty(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class LogDynastyValueChangeCall__Outputs {
-  _call: LogDynastyValueChangeCall;
-
-  constructor(call: LogDynastyValueChangeCall) {
-    this._call = call;
-  }
-}
-
-export class LogJailedCall extends ethereum.Call {
-  get inputs(): LogJailedCall__Inputs {
-    return new LogJailedCall__Inputs(this);
-  }
-
-  get outputs(): LogJailedCall__Outputs {
-    return new LogJailedCall__Outputs(this);
-  }
-}
-
-export class LogJailedCall__Inputs {
-  _call: LogJailedCall;
-
-  constructor(call: LogJailedCall) {
-    this._call = call;
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get exitEpoch(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get signer(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-}
-
-export class LogJailedCall__Outputs {
-  _call: LogJailedCall;
-
-  constructor(call: LogJailedCall) {
-    this._call = call;
-  }
-}
-
-export class LogProposerBonusChangeCall extends ethereum.Call {
-  get inputs(): LogProposerBonusChangeCall__Inputs {
-    return new LogProposerBonusChangeCall__Inputs(this);
-  }
-
-  get outputs(): LogProposerBonusChangeCall__Outputs {
-    return new LogProposerBonusChangeCall__Outputs(this);
-  }
-}
-
-export class LogProposerBonusChangeCall__Inputs {
-  _call: LogProposerBonusChangeCall;
-
-  constructor(call: LogProposerBonusChangeCall) {
-    this._call = call;
-  }
-
-  get newProposerBonus(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get oldProposerBonus(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class LogProposerBonusChangeCall__Outputs {
-  _call: LogProposerBonusChangeCall;
-
-  constructor(call: LogProposerBonusChangeCall) {
-    this._call = call;
-  }
-}
-
-export class LogRestakedCall extends ethereum.Call {
-  get inputs(): LogRestakedCall__Inputs {
-    return new LogRestakedCall__Inputs(this);
-  }
-
-  get outputs(): LogRestakedCall__Outputs {
-    return new LogRestakedCall__Outputs(this);
-  }
-}
-
-export class LogRestakedCall__Inputs {
-  _call: LogRestakedCall;
-
-  constructor(call: LogRestakedCall) {
-    this._call = call;
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get total(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-}
-
-export class LogRestakedCall__Outputs {
-  _call: LogRestakedCall;
-
-  constructor(call: LogRestakedCall) {
-    this._call = call;
-  }
-}
-
-export class LogRewardUpdateCall extends ethereum.Call {
-  get inputs(): LogRewardUpdateCall__Inputs {
-    return new LogRewardUpdateCall__Inputs(this);
-  }
-
-  get outputs(): LogRewardUpdateCall__Outputs {
-    return new LogRewardUpdateCall__Outputs(this);
-  }
-}
-
-export class LogRewardUpdateCall__Inputs {
-  _call: LogRewardUpdateCall;
-
-  constructor(call: LogRewardUpdateCall) {
-    this._call = call;
-  }
-
-  get newReward(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get oldReward(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class LogRewardUpdateCall__Outputs {
-  _call: LogRewardUpdateCall;
-
-  constructor(call: LogRewardUpdateCall) {
-    this._call = call;
-  }
-}
-
-export class LogShareBurnedCall extends ethereum.Call {
-  get inputs(): LogShareBurnedCall__Inputs {
-    return new LogShareBurnedCall__Inputs(this);
-  }
-
-  get outputs(): LogShareBurnedCall__Outputs {
-    return new LogShareBurnedCall__Outputs(this);
-  }
-}
-
-export class LogShareBurnedCall__Inputs {
-  _call: LogShareBurnedCall;
-
-  constructor(call: LogShareBurnedCall) {
-    this._call = call;
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get user(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get tokens(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-}
-
-export class LogShareBurnedCall__Outputs {
-  _call: LogShareBurnedCall;
-
-  constructor(call: LogShareBurnedCall) {
-    this._call = call;
-  }
-}
-
-export class LogShareMintedCall extends ethereum.Call {
-  get inputs(): LogShareMintedCall__Inputs {
-    return new LogShareMintedCall__Inputs(this);
-  }
-
-  get outputs(): LogShareMintedCall__Outputs {
-    return new LogShareMintedCall__Outputs(this);
-  }
-}
-
-export class LogShareMintedCall__Inputs {
-  _call: LogShareMintedCall;
-
-  constructor(call: LogShareMintedCall) {
-    this._call = call;
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get user(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get tokens(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-}
-
-export class LogShareMintedCall__Outputs {
-  _call: LogShareMintedCall;
-
-  constructor(call: LogShareMintedCall) {
-    this._call = call;
-  }
-}
-
-export class LogSignerChangeCall extends ethereum.Call {
-  get inputs(): LogSignerChangeCall__Inputs {
-    return new LogSignerChangeCall__Inputs(this);
-  }
-
-  get outputs(): LogSignerChangeCall__Outputs {
-    return new LogSignerChangeCall__Outputs(this);
-  }
-}
-
-export class LogSignerChangeCall__Inputs {
-  _call: LogSignerChangeCall;
-
-  constructor(call: LogSignerChangeCall) {
-    this._call = call;
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get oldSigner(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get newSigner(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-
-  get signerPubkey(): Bytes {
-    return this._call.inputValues[3].value.toBytes();
-  }
-}
-
-export class LogSignerChangeCall__Outputs {
-  _call: LogSignerChangeCall;
-
-  constructor(call: LogSignerChangeCall) {
-    this._call = call;
-  }
-}
-
-export class LogSlashedCall extends ethereum.Call {
-  get inputs(): LogSlashedCall__Inputs {
-    return new LogSlashedCall__Inputs(this);
-  }
-
-  get outputs(): LogSlashedCall__Outputs {
-    return new LogSlashedCall__Outputs(this);
-  }
-}
-
-export class LogSlashedCall__Inputs {
-  _call: LogSlashedCall;
-
-  constructor(call: LogSlashedCall) {
-    this._call = call;
-  }
-
-  get nonce(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class LogSlashedCall__Outputs {
-  _call: LogSlashedCall;
-
-  constructor(call: LogSlashedCall) {
-    this._call = call;
-  }
-}
-
-export class LogStakeUpdateCall extends ethereum.Call {
-  get inputs(): LogStakeUpdateCall__Inputs {
-    return new LogStakeUpdateCall__Inputs(this);
-  }
-
-  get outputs(): LogStakeUpdateCall__Outputs {
-    return new LogStakeUpdateCall__Outputs(this);
-  }
-}
-
-export class LogStakeUpdateCall__Inputs {
-  _call: LogStakeUpdateCall;
-
-  constructor(call: LogStakeUpdateCall) {
-    this._call = call;
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class LogStakeUpdateCall__Outputs {
-  _call: LogStakeUpdateCall;
-
-  constructor(call: LogStakeUpdateCall) {
-    this._call = call;
-  }
-}
-
-export class LogStakedCall extends ethereum.Call {
-  get inputs(): LogStakedCall__Inputs {
-    return new LogStakedCall__Inputs(this);
-  }
-
-  get outputs(): LogStakedCall__Outputs {
-    return new LogStakedCall__Outputs(this);
-  }
-}
-
-export class LogStakedCall__Inputs {
-  _call: LogStakedCall;
-
-  constructor(call: LogStakedCall) {
-    this._call = call;
-  }
-
-  get signer(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get signerPubkey(): Bytes {
-    return this._call.inputValues[1].value.toBytes();
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get activationEpoch(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
-  }
-
-  get total(): BigInt {
-    return this._call.inputValues[5].value.toBigInt();
-  }
-}
-
-export class LogStakedCall__Outputs {
-  _call: LogStakedCall;
-
-  constructor(call: LogStakedCall) {
-    this._call = call;
-  }
-}
-
-export class LogStartAuctionCall extends ethereum.Call {
-  get inputs(): LogStartAuctionCall__Inputs {
-    return new LogStartAuctionCall__Inputs(this);
-  }
-
-  get outputs(): LogStartAuctionCall__Outputs {
-    return new LogStartAuctionCall__Outputs(this);
-  }
-}
-
-export class LogStartAuctionCall__Inputs {
-  _call: LogStartAuctionCall;
-
-  constructor(call: LogStartAuctionCall) {
-    this._call = call;
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get auctionAmount(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-}
-
-export class LogStartAuctionCall__Outputs {
-  _call: LogStartAuctionCall;
-
-  constructor(call: LogStartAuctionCall) {
-    this._call = call;
-  }
-}
-
-export class LogThresholdChangeCall extends ethereum.Call {
-  get inputs(): LogThresholdChangeCall__Inputs {
-    return new LogThresholdChangeCall__Inputs(this);
-  }
-
-  get outputs(): LogThresholdChangeCall__Outputs {
-    return new LogThresholdChangeCall__Outputs(this);
-  }
-}
-
-export class LogThresholdChangeCall__Inputs {
-  _call: LogThresholdChangeCall;
-
-  constructor(call: LogThresholdChangeCall) {
-    this._call = call;
-  }
-
-  get newThreshold(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get oldThreshold(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class LogThresholdChangeCall__Outputs {
-  _call: LogThresholdChangeCall;
-
-  constructor(call: LogThresholdChangeCall) {
-    this._call = call;
-  }
-}
-
-export class LogTopUpFeeCall extends ethereum.Call {
-  get inputs(): LogTopUpFeeCall__Inputs {
-    return new LogTopUpFeeCall__Inputs(this);
-  }
-
-  get outputs(): LogTopUpFeeCall__Outputs {
-    return new LogTopUpFeeCall__Outputs(this);
-  }
-}
-
-export class LogTopUpFeeCall__Inputs {
-  _call: LogTopUpFeeCall;
-
-  constructor(call: LogTopUpFeeCall) {
-    this._call = call;
-  }
-
-  get user(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get fee(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class LogTopUpFeeCall__Outputs {
-  _call: LogTopUpFeeCall;
-
-  constructor(call: LogTopUpFeeCall) {
-    this._call = call;
-  }
-}
-
-export class LogUnjailedCall extends ethereum.Call {
-  get inputs(): LogUnjailedCall__Inputs {
-    return new LogUnjailedCall__Inputs(this);
-  }
-
-  get outputs(): LogUnjailedCall__Outputs {
-    return new LogUnjailedCall__Outputs(this);
-  }
-}
-
-export class LogUnjailedCall__Inputs {
-  _call: LogUnjailedCall;
-
-  constructor(call: LogUnjailedCall) {
-    this._call = call;
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get signer(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class LogUnjailedCall__Outputs {
-  _call: LogUnjailedCall;
-
-  constructor(call: LogUnjailedCall) {
-    this._call = call;
-  }
-}
-
-export class LogUnstakeInitCall extends ethereum.Call {
-  get inputs(): LogUnstakeInitCall__Inputs {
-    return new LogUnstakeInitCall__Inputs(this);
-  }
-
-  get outputs(): LogUnstakeInitCall__Outputs {
-    return new LogUnstakeInitCall__Outputs(this);
-  }
-}
-
-export class LogUnstakeInitCall__Inputs {
-  _call: LogUnstakeInitCall;
-
-  constructor(call: LogUnstakeInitCall) {
-    this._call = call;
-  }
-
-  get user(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get deactivationEpoch(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-}
-
-export class LogUnstakeInitCall__Outputs {
-  _call: LogUnstakeInitCall;
-
-  constructor(call: LogUnstakeInitCall) {
-    this._call = call;
-  }
-}
-
-export class LogUnstakedCall extends ethereum.Call {
-  get inputs(): LogUnstakedCall__Inputs {
-    return new LogUnstakedCall__Inputs(this);
-  }
-
-  get outputs(): LogUnstakedCall__Outputs {
-    return new LogUnstakedCall__Outputs(this);
-  }
-}
-
-export class LogUnstakedCall__Inputs {
-  _call: LogUnstakedCall;
-
-  constructor(call: LogUnstakedCall) {
-    this._call = call;
-  }
-
-  get user(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get validatorId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get total(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-}
-
-export class LogUnstakedCall__Outputs {
-  _call: LogUnstakedCall;
-
-  constructor(call: LogUnstakedCall) {
-    this._call = call;
-  }
-}
-
 export class LogUpdateCommissionRateCall extends ethereum.Call {
   get inputs(): LogUpdateCommissionRateCall__Inputs {
     return new LogUpdateCommissionRateCall__Inputs(this);
@@ -1844,96 +1934,6 @@ export class LogUpdateCommissionRateCall__Outputs {
   _call: LogUpdateCommissionRateCall;
 
   constructor(call: LogUpdateCommissionRateCall) {
-    this._call = call;
-  }
-}
-
-export class RenounceOwnershipCall extends ethereum.Call {
-  get inputs(): RenounceOwnershipCall__Inputs {
-    return new RenounceOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): RenounceOwnershipCall__Outputs {
-    return new RenounceOwnershipCall__Outputs(this);
-  }
-}
-
-export class RenounceOwnershipCall__Inputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class RenounceOwnershipCall__Outputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class TransferOwnershipCall extends ethereum.Call {
-  get inputs(): TransferOwnershipCall__Inputs {
-    return new TransferOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): TransferOwnershipCall__Outputs {
-    return new TransferOwnershipCall__Outputs(this);
-  }
-}
-
-export class TransferOwnershipCall__Inputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-
-  get newOwner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class TransferOwnershipCall__Outputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class UpdateNonceCall extends ethereum.Call {
-  get inputs(): UpdateNonceCall__Inputs {
-    return new UpdateNonceCall__Inputs(this);
-  }
-
-  get outputs(): UpdateNonceCall__Outputs {
-    return new UpdateNonceCall__Outputs(this);
-  }
-}
-
-export class UpdateNonceCall__Inputs {
-  _call: UpdateNonceCall;
-
-  constructor(call: UpdateNonceCall) {
-    this._call = call;
-  }
-
-  get validatorIds(): Array<BigInt> {
-    return this._call.inputValues[0].value.toBigIntArray();
-  }
-
-  get nonces(): Array<BigInt> {
-    return this._call.inputValues[1].value.toBigIntArray();
-  }
-}
-
-export class UpdateNonceCall__Outputs {
-  _call: UpdateNonceCall;
-
-  constructor(call: UpdateNonceCall) {
     this._call = call;
   }
 }

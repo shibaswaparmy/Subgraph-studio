@@ -136,16 +136,16 @@ export class RoleRevoked__Params {
   }
 }
 
-export class RootChainManagerTokenMapped extends ethereum.Event {
-  get params(): RootChainManagerTokenMapped__Params {
-    return new RootChainManagerTokenMapped__Params(this);
+export class TokenMapped extends ethereum.Event {
+  get params(): TokenMapped__Params {
+    return new TokenMapped__Params(this);
   }
 }
 
-export class RootChainManagerTokenMapped__Params {
-  _event: RootChainManagerTokenMapped;
+export class TokenMapped__Params {
+  _event: TokenMapped;
 
-  constructor(event: RootChainManagerTokenMapped) {
+  constructor(event: TokenMapped) {
     this._event = event;
   }
 
@@ -271,29 +271,6 @@ export class RootChainManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
-  checkpointManagerAddress(): Address {
-    let result = super.call(
-      "checkpointManagerAddress",
-      "checkpointManagerAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_checkpointManagerAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "checkpointManagerAddress",
-      "checkpointManagerAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   childChainManagerAddress(): Address {
@@ -539,29 +516,6 @@ export class RootChainManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  stateSenderAddress(): Address {
-    let result = super.call(
-      "stateSenderAddress",
-      "stateSenderAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_stateSenderAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "stateSenderAddress",
-      "stateSenderAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
   tokenToType(param0: Address): Bytes {
     let result = super.call("tokenToType", "tokenToType(address):(bytes32)", [
       ethereum.Value.fromAddress(param0)
@@ -605,107 +559,51 @@ export class RootChainManager extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
-}
 
-export class CleanMapTokenCall extends ethereum.Call {
-  get inputs(): CleanMapTokenCall__Inputs {
-    return new CleanMapTokenCall__Inputs(this);
+  stateSenderAddress(): Address {
+    let result = super.call(
+      "stateSenderAddress",
+      "stateSenderAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
   }
 
-  get outputs(): CleanMapTokenCall__Outputs {
-    return new CleanMapTokenCall__Outputs(this);
-  }
-}
-
-export class CleanMapTokenCall__Inputs {
-  _call: CleanMapTokenCall;
-
-  constructor(call: CleanMapTokenCall) {
-    this._call = call;
-  }
-
-  get rootToken(): Address {
-    return this._call.inputValues[0].value.toAddress();
+  try_stateSenderAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "stateSenderAddress",
+      "stateSenderAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  get childToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
+  checkpointManagerAddress(): Address {
+    let result = super.call(
+      "checkpointManagerAddress",
+      "checkpointManagerAddress():(address)",
+      []
+    );
 
-export class CleanMapTokenCall__Outputs {
-  _call: CleanMapTokenCall;
-
-  constructor(call: CleanMapTokenCall) {
-    this._call = call;
-  }
-}
-
-export class DepositEtherForCall extends ethereum.Call {
-  get inputs(): DepositEtherForCall__Inputs {
-    return new DepositEtherForCall__Inputs(this);
+    return result[0].toAddress();
   }
 
-  get outputs(): DepositEtherForCall__Outputs {
-    return new DepositEtherForCall__Outputs(this);
-  }
-}
-
-export class DepositEtherForCall__Inputs {
-  _call: DepositEtherForCall;
-
-  constructor(call: DepositEtherForCall) {
-    this._call = call;
-  }
-
-  get user(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class DepositEtherForCall__Outputs {
-  _call: DepositEtherForCall;
-
-  constructor(call: DepositEtherForCall) {
-    this._call = call;
-  }
-}
-
-export class DepositForCall extends ethereum.Call {
-  get inputs(): DepositForCall__Inputs {
-    return new DepositForCall__Inputs(this);
-  }
-
-  get outputs(): DepositForCall__Outputs {
-    return new DepositForCall__Outputs(this);
-  }
-}
-
-export class DepositForCall__Inputs {
-  _call: DepositForCall;
-
-  constructor(call: DepositForCall) {
-    this._call = call;
-  }
-
-  get user(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get rootToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get depositData(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-}
-
-export class DepositForCall__Outputs {
-  _call: DepositForCall;
-
-  constructor(call: DepositForCall) {
-    this._call = call;
+  try_checkpointManagerAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "checkpointManagerAddress",
+      "checkpointManagerAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 }
 
@@ -759,36 +657,6 @@ export class ExecuteMetaTransactionCall__Outputs {
   }
 }
 
-export class ExitCall extends ethereum.Call {
-  get inputs(): ExitCall__Inputs {
-    return new ExitCall__Inputs(this);
-  }
-
-  get outputs(): ExitCall__Outputs {
-    return new ExitCall__Outputs(this);
-  }
-}
-
-export class ExitCall__Inputs {
-  _call: ExitCall;
-
-  constructor(call: ExitCall) {
-    this._call = call;
-  }
-
-  get inputData(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-}
-
-export class ExitCall__Outputs {
-  _call: ExitCall;
-
-  constructor(call: ExitCall) {
-    this._call = call;
-  }
-}
-
 export class GrantRoleCall extends ethereum.Call {
   get inputs(): GrantRoleCall__Inputs {
     return new GrantRoleCall__Inputs(this);
@@ -819,172 +687,6 @@ export class GrantRoleCall__Outputs {
   _call: GrantRoleCall;
 
   constructor(call: GrantRoleCall) {
-    this._call = call;
-  }
-}
-
-export class InitializeCall extends ethereum.Call {
-  get inputs(): InitializeCall__Inputs {
-    return new InitializeCall__Inputs(this);
-  }
-
-  get outputs(): InitializeCall__Outputs {
-    return new InitializeCall__Outputs(this);
-  }
-}
-
-export class InitializeCall__Inputs {
-  _call: InitializeCall;
-
-  constructor(call: InitializeCall) {
-    this._call = call;
-  }
-
-  get _owner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class InitializeCall__Outputs {
-  _call: InitializeCall;
-
-  constructor(call: InitializeCall) {
-    this._call = call;
-  }
-}
-
-export class InitializeEIP712Call extends ethereum.Call {
-  get inputs(): InitializeEIP712Call__Inputs {
-    return new InitializeEIP712Call__Inputs(this);
-  }
-
-  get outputs(): InitializeEIP712Call__Outputs {
-    return new InitializeEIP712Call__Outputs(this);
-  }
-}
-
-export class InitializeEIP712Call__Inputs {
-  _call: InitializeEIP712Call;
-
-  constructor(call: InitializeEIP712Call) {
-    this._call = call;
-  }
-}
-
-export class InitializeEIP712Call__Outputs {
-  _call: InitializeEIP712Call;
-
-  constructor(call: InitializeEIP712Call) {
-    this._call = call;
-  }
-}
-
-export class MapTokenCall extends ethereum.Call {
-  get inputs(): MapTokenCall__Inputs {
-    return new MapTokenCall__Inputs(this);
-  }
-
-  get outputs(): MapTokenCall__Outputs {
-    return new MapTokenCall__Outputs(this);
-  }
-}
-
-export class MapTokenCall__Inputs {
-  _call: MapTokenCall;
-
-  constructor(call: MapTokenCall) {
-    this._call = call;
-  }
-
-  get rootToken(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get childToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get tokenType(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-}
-
-export class MapTokenCall__Outputs {
-  _call: MapTokenCall;
-
-  constructor(call: MapTokenCall) {
-    this._call = call;
-  }
-}
-
-export class RegisterPredicateCall extends ethereum.Call {
-  get inputs(): RegisterPredicateCall__Inputs {
-    return new RegisterPredicateCall__Inputs(this);
-  }
-
-  get outputs(): RegisterPredicateCall__Outputs {
-    return new RegisterPredicateCall__Outputs(this);
-  }
-}
-
-export class RegisterPredicateCall__Inputs {
-  _call: RegisterPredicateCall;
-
-  constructor(call: RegisterPredicateCall) {
-    this._call = call;
-  }
-
-  get tokenType(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get predicateAddress(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class RegisterPredicateCall__Outputs {
-  _call: RegisterPredicateCall;
-
-  constructor(call: RegisterPredicateCall) {
-    this._call = call;
-  }
-}
-
-export class RemapTokenCall extends ethereum.Call {
-  get inputs(): RemapTokenCall__Inputs {
-    return new RemapTokenCall__Inputs(this);
-  }
-
-  get outputs(): RemapTokenCall__Outputs {
-    return new RemapTokenCall__Outputs(this);
-  }
-}
-
-export class RemapTokenCall__Inputs {
-  _call: RemapTokenCall;
-
-  constructor(call: RemapTokenCall) {
-    this._call = call;
-  }
-
-  get rootToken(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get childToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get tokenType(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-}
-
-export class RemapTokenCall__Outputs {
-  _call: RemapTokenCall;
-
-  constructor(call: RemapTokenCall) {
     this._call = call;
   }
 }
@@ -1057,6 +759,118 @@ export class RevokeRoleCall__Outputs {
   }
 }
 
+export class InitializeCall extends ethereum.Call {
+  get inputs(): InitializeCall__Inputs {
+    return new InitializeCall__Inputs(this);
+  }
+
+  get outputs(): InitializeCall__Outputs {
+    return new InitializeCall__Outputs(this);
+  }
+}
+
+export class InitializeCall__Inputs {
+  _call: InitializeCall;
+
+  constructor(call: InitializeCall) {
+    this._call = call;
+  }
+
+  get _owner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class InitializeCall__Outputs {
+  _call: InitializeCall;
+
+  constructor(call: InitializeCall) {
+    this._call = call;
+  }
+}
+
+export class SetupContractIdCall extends ethereum.Call {
+  get inputs(): SetupContractIdCall__Inputs {
+    return new SetupContractIdCall__Inputs(this);
+  }
+
+  get outputs(): SetupContractIdCall__Outputs {
+    return new SetupContractIdCall__Outputs(this);
+  }
+}
+
+export class SetupContractIdCall__Inputs {
+  _call: SetupContractIdCall;
+
+  constructor(call: SetupContractIdCall) {
+    this._call = call;
+  }
+}
+
+export class SetupContractIdCall__Outputs {
+  _call: SetupContractIdCall;
+
+  constructor(call: SetupContractIdCall) {
+    this._call = call;
+  }
+}
+
+export class InitializeEIP712Call extends ethereum.Call {
+  get inputs(): InitializeEIP712Call__Inputs {
+    return new InitializeEIP712Call__Inputs(this);
+  }
+
+  get outputs(): InitializeEIP712Call__Outputs {
+    return new InitializeEIP712Call__Outputs(this);
+  }
+}
+
+export class InitializeEIP712Call__Inputs {
+  _call: InitializeEIP712Call;
+
+  constructor(call: InitializeEIP712Call) {
+    this._call = call;
+  }
+}
+
+export class InitializeEIP712Call__Outputs {
+  _call: InitializeEIP712Call;
+
+  constructor(call: InitializeEIP712Call) {
+    this._call = call;
+  }
+}
+
+export class SetStateSenderCall extends ethereum.Call {
+  get inputs(): SetStateSenderCall__Inputs {
+    return new SetStateSenderCall__Inputs(this);
+  }
+
+  get outputs(): SetStateSenderCall__Outputs {
+    return new SetStateSenderCall__Outputs(this);
+  }
+}
+
+export class SetStateSenderCall__Inputs {
+  _call: SetStateSenderCall;
+
+  constructor(call: SetStateSenderCall) {
+    this._call = call;
+  }
+
+  get newStateSender(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetStateSenderCall__Outputs {
+  _call: SetStateSenderCall;
+
+  constructor(call: SetStateSenderCall) {
+    this._call = call;
+  }
+}
+
 export class SetCheckpointManagerCall extends ethereum.Call {
   get inputs(): SetCheckpointManagerCall__Inputs {
     return new SetCheckpointManagerCall__Inputs(this);
@@ -1117,58 +931,210 @@ export class SetChildChainManagerAddressCall__Outputs {
   }
 }
 
-export class SetStateSenderCall extends ethereum.Call {
-  get inputs(): SetStateSenderCall__Inputs {
-    return new SetStateSenderCall__Inputs(this);
+export class RegisterPredicateCall extends ethereum.Call {
+  get inputs(): RegisterPredicateCall__Inputs {
+    return new RegisterPredicateCall__Inputs(this);
   }
 
-  get outputs(): SetStateSenderCall__Outputs {
-    return new SetStateSenderCall__Outputs(this);
+  get outputs(): RegisterPredicateCall__Outputs {
+    return new RegisterPredicateCall__Outputs(this);
   }
 }
 
-export class SetStateSenderCall__Inputs {
-  _call: SetStateSenderCall;
+export class RegisterPredicateCall__Inputs {
+  _call: RegisterPredicateCall;
 
-  constructor(call: SetStateSenderCall) {
+  constructor(call: RegisterPredicateCall) {
     this._call = call;
   }
 
-  get newStateSender(): Address {
+  get tokenType(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get predicateAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class RegisterPredicateCall__Outputs {
+  _call: RegisterPredicateCall;
+
+  constructor(call: RegisterPredicateCall) {
+    this._call = call;
+  }
+}
+
+export class MapTokenCall extends ethereum.Call {
+  get inputs(): MapTokenCall__Inputs {
+    return new MapTokenCall__Inputs(this);
+  }
+
+  get outputs(): MapTokenCall__Outputs {
+    return new MapTokenCall__Outputs(this);
+  }
+}
+
+export class MapTokenCall__Inputs {
+  _call: MapTokenCall;
+
+  constructor(call: MapTokenCall) {
+    this._call = call;
+  }
+
+  get rootToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get childToken(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenType(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+}
+
+export class MapTokenCall__Outputs {
+  _call: MapTokenCall;
+
+  constructor(call: MapTokenCall) {
+    this._call = call;
+  }
+}
+
+export class RemapTokenCall extends ethereum.Call {
+  get inputs(): RemapTokenCall__Inputs {
+    return new RemapTokenCall__Inputs(this);
+  }
+
+  get outputs(): RemapTokenCall__Outputs {
+    return new RemapTokenCall__Outputs(this);
+  }
+}
+
+export class RemapTokenCall__Inputs {
+  _call: RemapTokenCall;
+
+  constructor(call: RemapTokenCall) {
+    this._call = call;
+  }
+
+  get rootToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get childToken(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenType(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+}
+
+export class RemapTokenCall__Outputs {
+  _call: RemapTokenCall;
+
+  constructor(call: RemapTokenCall) {
+    this._call = call;
+  }
+}
+
+export class DepositEtherForCall extends ethereum.Call {
+  get inputs(): DepositEtherForCall__Inputs {
+    return new DepositEtherForCall__Inputs(this);
+  }
+
+  get outputs(): DepositEtherForCall__Outputs {
+    return new DepositEtherForCall__Outputs(this);
+  }
+}
+
+export class DepositEtherForCall__Inputs {
+  _call: DepositEtherForCall;
+
+  constructor(call: DepositEtherForCall) {
+    this._call = call;
+  }
+
+  get user(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 }
 
-export class SetStateSenderCall__Outputs {
-  _call: SetStateSenderCall;
+export class DepositEtherForCall__Outputs {
+  _call: DepositEtherForCall;
 
-  constructor(call: SetStateSenderCall) {
+  constructor(call: DepositEtherForCall) {
     this._call = call;
   }
 }
 
-export class SetupContractIdCall extends ethereum.Call {
-  get inputs(): SetupContractIdCall__Inputs {
-    return new SetupContractIdCall__Inputs(this);
+export class DepositForCall extends ethereum.Call {
+  get inputs(): DepositForCall__Inputs {
+    return new DepositForCall__Inputs(this);
   }
 
-  get outputs(): SetupContractIdCall__Outputs {
-    return new SetupContractIdCall__Outputs(this);
+  get outputs(): DepositForCall__Outputs {
+    return new DepositForCall__Outputs(this);
   }
 }
 
-export class SetupContractIdCall__Inputs {
-  _call: SetupContractIdCall;
+export class DepositForCall__Inputs {
+  _call: DepositForCall;
 
-  constructor(call: SetupContractIdCall) {
+  constructor(call: DepositForCall) {
+    this._call = call;
+  }
+
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get rootToken(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get depositData(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+}
+
+export class DepositForCall__Outputs {
+  _call: DepositForCall;
+
+  constructor(call: DepositForCall) {
     this._call = call;
   }
 }
 
-export class SetupContractIdCall__Outputs {
-  _call: SetupContractIdCall;
+export class ExitCall extends ethereum.Call {
+  get inputs(): ExitCall__Inputs {
+    return new ExitCall__Inputs(this);
+  }
 
-  constructor(call: SetupContractIdCall) {
+  get outputs(): ExitCall__Outputs {
+    return new ExitCall__Outputs(this);
+  }
+}
+
+export class ExitCall__Inputs {
+  _call: ExitCall;
+
+  constructor(call: ExitCall) {
+    this._call = call;
+  }
+
+  get inputData(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+}
+
+export class ExitCall__Outputs {
+  _call: ExitCall;
+
+  constructor(call: ExitCall) {
     this._call = call;
   }
 }

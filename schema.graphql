@@ -1,444 +1,317 @@
-type ExampleEntity @entity {
+type Checkpoint @entity {
   id: ID!
-  count: BigInt!
-  key: Bytes! # bytes32
-  previousContract: Bytes! # address
-}
-type NewHeaderBlock @entity {
-  id: ID!
-  proposer: Bytes! # address
-  headerBlockId: BigInt! # uint256
-  reward: BigInt! # uint256
-  start: BigInt! # uint256
-  end: BigInt! # uint256
-  root: Bytes! # bytes32
+  proposer: Bytes!
+  headerBlockId: BigInt!
+  checkpointNumber: BigInt!
+  reward: BigInt!
+  start: BigInt!
+  end: BigInt!
+  root: Bytes!
+  logIndex: String!
+  transactionHash: Bytes!
+  timestamp: BigInt!
 }
 
-type OwnershipTransferred @entity {
+type StateSync @entity {
   id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
+  stateId: BigInt!
+  contract: Bytes!
+  syncType: Int!
+  depositorOrRootToken: String!
+  depositedTokenOrChildToken: String!
+  data: String!
+  rawData: String!
+  logIndex: String!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+  blockNumber: BigInt!
 }
 
-type ResetHeaderBlock @entity {
+type StateRegistration @entity {
   id: ID!
-  proposer: Bytes! # address
-  headerBlockId: BigInt! # uint256
-}
-type ExitCancelled @entity {
-  id: ID!
-  exitId: BigInt! # uint256
+  user: Bytes!
+  receiver: Bytes!
+  sender: Bytes!
 }
 
-type ExitPeriodUpdate @entity {
+# This entity will hold everything regarding
+# plasma exit
+#
+# Not all fields are made compulsory due to the fact,
+# all steps don't happen at a time, rather they will be async ops
+type PlasmaExit @entity {
+  # id always created using `plasma-exit-${exitId}`
   id: ID!
-  oldExitPeriod: BigInt! # uint256
-  newExitPeriod: BigInt! # uint256
+  counter: BigInt! # this field can be used to know where the exitStarted transaction happened.
+  exitId: BigInt!
+  exitInitiator: Bytes
+  exitCompleter: Bytes
+  token: Bytes
+  amount: BigInt
+  isRegularExit: Boolean!
+  exited: Int!
+  # exited can take 3 possible values
+  # 0 -> exit started
+  # 1 -> exit cancelled
+  # 2 -> exit completed
+  exitStartedTxHash: Bytes
+  exitStartedTimeStamp: BigInt
+  exitCancelledTxHash: Bytes
+  exitCancelledTimeStamp: BigInt
+  exitCompletedTxHash: Bytes
+  exitCompletedTimeStamp: BigInt
 }
 
-type ExitStarted @entity {
+type PredicateRegistration @entity {
   id: ID!
-  exitor: Bytes! # address
-  exitId: BigInt! # uint256
-  token: Bytes! # address
-  amount: BigInt! # uint256
-  isRegularExit: Boolean! # bool
+  tokenType: Bytes!
+  predicateAddress: Bytes!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type ExitUpdated @entity {
+type TokenMapping @entity {
   id: ID!
-  exitId: BigInt! # uint256
-  age: BigInt! # uint256
-  signer: Bytes! # address
+  rootToken: Bytes!
+  childToken: Bytes!
+  tokenType: String!
+  isPOS: Boolean!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type WithdrawManagerOwnershipTransferred @entity {
+type FxTokenMapping @entity {
   id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
+  counter: BigInt!
+  contractAddress: Bytes!
+  rootToken: Bytes!
+  childToken: Bytes!
+  tokenType: String!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type Withdraw @entity {
+type FxTokenMappingCounter @entity {
   id: ID!
-  exitId: BigInt! # uint256
-  user: Bytes! # address
-  token: Bytes! # address
-  amount: BigInt! # uint256
-}
-type MetaTransactionExecuted @entity {
-  id: ID!
-  userAddress: Bytes! # address
-  relayerAddress: Bytes! # address
-  functionSignature: Bytes! # bytes
+  current: BigInt!
 }
 
-type PredicateRegistered @entity {
+type FxDeposit @entity {
   id: ID!
-  tokenType: Bytes! # bytes32
-  predicateAddress: Bytes! # address
+  counter: BigInt!
+  contractAddress: Bytes!
+  rootToken: Bytes!
+  tokenType: String!
+  depositor: Bytes!
+  userAddress: Bytes!
+  amount: BigInt
+  tokenId: BigInt
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RoleAdminChanged @entity {
+type FxDepositCounter @entity {
   id: ID!
-  role: Bytes! # bytes32
-  previousAdminRole: Bytes! # bytes32
-  newAdminRole: Bytes! # bytes32
+  current: BigInt!
 }
 
-type RoleGranted @entity {
+type FxWithdraw @entity {
   id: ID!
-  role: Bytes! # bytes32
-  account: Bytes! # address
-  sender: Bytes! # address
+  counter: BigInt!
+  contractAddress: Bytes!
+  rootToken: Bytes!
+  childToken: Bytes!
+  tokenType: String!
+  userAddress: Bytes!
+  amount: BigInt
+  tokenId: BigInt
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RoleRevoked @entity {
+type FxWithdrawCounter @entity {
   id: ID!
-  role: Bytes! # bytes32
-  account: Bytes! # address
-  sender: Bytes! # address
+  current: BigInt!
 }
 
-type RootChainManagerTokenMapped @entity {
+type Validator @entity {
   id: ID!
-  rootToken: Bytes! # address
-  childToken: Bytes! # address
-  tokenType: Bytes! # bytes32
-}
-type NewRegistration @entity {
-  id: ID!
-  user: Bytes! # address
-  sender: Bytes! # address
-  receiver: Bytes! # address
-}
-
-type StateSenderOwnershipTransferred @entity {
-  id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-}
-
-type RegistrationUpdated @entity {
-  id: ID!
-  user: Bytes! # address
-  sender: Bytes! # address
-  receiver: Bytes! # address
-}
-
-type StateSynced @entity {
-  id: ID!
-  stateId: BigInt! # uint256
-  contractAddress: Bytes! # address
-  data: Bytes! # bytes
-}
-type ClaimFee @entity {
-  id: ID!
-  user: Bytes! # address
-  fee: BigInt! # uint256
-}
-
-type ClaimRewards @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  amount: BigInt! # uint256
-  totalAmount: BigInt! # uint256
-}
-
-type ConfirmAuction @entity {
-  id: ID!
-  newValidatorId: BigInt! # uint256
-  oldValidatorId: BigInt! # uint256
-  amount: BigInt! # uint256
-}
-
-type DelegatorClaimedRewards @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  user: Bytes! # address
-  rewards: BigInt! # uint256
-}
-
-type DelegatorRestaked @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  user: Bytes! # address
-  totalStaked: BigInt! # uint256
-}
-
-type DelegatorUnstaked @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  user: Bytes! # address
-  amount: BigInt! # uint256
-}
-
-type DynastyValueChange @entity {
-  id: ID!
-  newDynasty: BigInt! # uint256
-  oldDynasty: BigInt! # uint256
-}
-
-type Jailed @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  exitEpoch: BigInt! # uint256
-  signer: Bytes! # address
-}
-
-type StakingInfoOwnershipTransferred @entity {
-  id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-}
-
-type ProposerBonusChange @entity {
-  id: ID!
-  newProposerBonus: BigInt! # uint256
-  oldProposerBonus: BigInt! # uint256
-}
-
-type Restaked @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  amount: BigInt! # uint256
-  total: BigInt! # uint256
-}
-
-type RewardUpdate @entity {
-  id: ID!
-  newReward: BigInt! # uint256
-  oldReward: BigInt! # uint256
-}
-
-type ShareBurned @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  user: Bytes! # address
-  amount: BigInt! # uint256
-  tokens: BigInt! # uint256
-}
-
-type ShareMinted @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  user: Bytes! # address
-  amount: BigInt! # uint256
-  tokens: BigInt! # uint256
-}
-
-type SignerChange @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  nonce: BigInt! # uint256
-  oldSigner: Bytes! # address
-  newSigner: Bytes! # address
-  signerPubkey: Bytes! # bytes
-}
-
-type Slashed @entity {
-  id: ID!
-  nonce: BigInt! # uint256
-  amount: BigInt! # uint256
+  validatorId: BigInt!
+  owner: Bytes!
+  signer: Bytes!
+  signerPubKey: Bytes!
+  liquidatedRewards: BigInt!
+  activationEpoch: BigInt!
+  deactivationEpoch: BigInt!
+  totalStaked: BigInt!
+  selfStake: BigInt!
+  delegatedStake: BigInt!
+  commissionRate: BigInt!
+  nonce: BigInt!
+  # Meaning of status codes
+  #
+  # 0 : Staked
+  # 1 : Unstaked
+  # 2 : Jailed
+  # 3 : Unjailed
+  status: Int!
+  jailEndEpoch: BigInt!
+  auctionAmount: BigInt!
+  isInAuction: Boolean!
 }
 
 type StakeUpdate @entity {
   id: ID!
-  validatorId: BigInt! # uint256
-  nonce: BigInt! # uint256
-  newAmount: BigInt! # uint256
+  validatorId: BigInt!
+  totalStaked: BigInt!
+  block: BigInt!
+  nonce: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
 }
 
-type Staked @entity {
+# Keeps track of current delegator counter i.e. how many
+# delegators are present as of now
+type GlobalDelegatorCounter @entity {
   id: ID!
-  signer: Bytes! # address
-  validatorId: BigInt! # uint256
-  nonce: BigInt! # uint256
-  activationEpoch: BigInt! # uint256
-  amount: BigInt! # uint256
-  total: BigInt! # uint256
-  signerPubkey: Bytes! # bytes
+  current: BigInt!
 }
 
-type StartAuction @entity {
+# This can be used to get the count of the plasma exits and till where have the process exits been processed.
+type GlobalPlasmaExitCounter @entity {
   id: ID!
-  validatorId: BigInt! # uint256
-  amount: BigInt! # uint256
-  auctionAmount: BigInt! # uint256
+  current: BigInt!
 }
 
-type ThresholdChange @entity {
+type Delegator @entity {
   id: ID!
-  newThreshold: BigInt! # uint256
-  oldThreshold: BigInt! # uint256
+  counter: BigInt! # this field can be used for traversing through large number of delegator list
+  validatorId: BigInt!
+  address: Bytes!
+  # total delegated amount
+  delegatedAmount: BigInt!
+  # total unclaimed amount (after sellVoucher and before claiming it)
+  unclaimedAmount: BigInt!
+  # total claimed amount (after withdraw delay, while claiming unstaked amount)
+  claimedAmount: BigInt!
+  # total current shares (works until tokens are non-transferable)
+  tokens: BigInt!
+  claimedRewards: BigInt!
 }
 
-type TopUpFee @entity {
+# Heimdall topups
+type Topup @entity {
   id: ID!
-  user: Bytes! # address
-  fee: BigInt! # uint256
+  address: Bytes!
+  topupAmount: BigInt!
+  withdrawAmount: BigInt!
 }
 
-type UnJailed @entity {
+# Staking Params across all validators
+type StakingParams
+  @queryFields(singular: "stakingParams", plural: "allStakingParams")
+  @entity {
   id: ID!
-  validatorId: BigInt! # uint256
-  signer: Bytes! # address
+  owner: Bytes
+  validatorThreshold: BigInt!
+  proposerBonus: BigInt!
+  dynasty: BigInt!
+  liquidatedRewards: BigInt!
 }
 
-type UnstakeInit @entity {
+# Staking NFT's historical ownership
+# can be checked using this entity
+type StakingNFTTransfer @entity {
   id: ID!
-  user: Bytes! # address
-  validatorId: BigInt! # uint256
-  nonce: BigInt! # uint256
-  deactivationEpoch: BigInt! # uint256
-  amount: BigInt! # uint256
+  tokenId: BigInt!
+  currentOwner: Bytes!
+  previousOwners: [Bytes!]!
+  transactionHashes: [Bytes!]!
 }
 
-type Unstaked @entity {
+type DelegatorUnbond @entity {
   id: ID!
-  user: Bytes! # address
-  validatorId: BigInt! # uint256
-  amount: BigInt! # uint256
-  total: BigInt! # uint256
+  nonce: BigInt!
+  validatorId: BigInt!
+  user: Bytes!
+  amount: BigInt!
+  tokens: BigInt!
+  completed: Boolean!
+  unbondStartedTxHash: Bytes
+  unbondStartedTimeStamp: BigInt
+  unbondClaimedTxHash: Bytes
+  unbondClaimedTimeStamp: BigInt
+  activeStake: BigInt!
 }
 
-type UpdateCommissionRate @entity {
+type MaticTransfer @entity {
   id: ID!
-  validatorId: BigInt! # uint256
-  newCommissionRate: BigInt! # uint256
-  oldCommissionRate: BigInt! # uint256
-}
-type DelegatorUnstakeWithId @entity {
-  id: ID!
-  validatorId: BigInt! # uint256
-  user: Bytes! # address
-  amount: BigInt! # uint256
-  nonce: BigInt! # uint256
+  token: Bytes!
+  from: Bytes!
+  to: Bytes!
+  value: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type RewardParams @entity {
+type GlobalDelegationCounter @entity {
   id: ID!
-  rewardDecreasePerCheckpoint: BigInt! # uint256
-  maxRewardedCheckpoints: BigInt! # uint256
-  checkpointRewardDelta: BigInt! # uint256
+  current: BigInt!
 }
 
-type ShareBurnedWithId @entity {
+type Delegation @entity {
   id: ID!
-  validatorId: BigInt! # uint256
-  user: Bytes! # address
-  amount: BigInt! # uint256
-  tokens: BigInt! # uint256
-  nonce: BigInt! # uint256
+  counter: BigInt! # this field can be used for traversing through large number of delegations list
+  validatorId: BigInt!
+  address: Bytes!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  # delegated amount in that transaction
+  amount: BigInt!
+  block: BigInt!
+  activeStake: BigInt!
 }
 
-type EventsHubUpdateCommissionRate @entity {
+type ValidatorClaimReward @entity {
   id: ID!
-  validatorId: BigInt! # uint256
-  newCommissionRate: BigInt! # uint256
-  oldCommissionRate: BigInt! # uint256
-}
-type Approval @entity {
-  id: ID!
-  owner: Bytes! # address
-  spender: Bytes! # address
-  value: BigInt! # uint256
+  validatorId: BigInt!
+  address: Bytes!
+  amount: BigInt!
+  totalAmount: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type DelegateChanged @entity {
+type ValidatorRestake @entity {
   id: ID!
-  delegator: Bytes! # address
-  fromDelegate: Bytes! # address
-  toDelegate: Bytes! # address
+  validatorId: BigInt!
+  address: Bytes!
+  amount: BigInt!
+  totalAmount: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type DelegateVotesChanged @entity {
+type DelegatorClaimReward @entity {
   id: ID!
-  delegate: Bytes! # address
-  previousBalance: BigInt! # uint256
-  newBalance: BigInt! # uint256
+  validatorId: BigInt!
+  user: Bytes!
+  rewards: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type BoneTokenOwnershipTransferred @entity {
+type DelegatorRestake @entity {
   id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
+  validatorId: BigInt!
+  user: Bytes!
+  totalStaked: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type Transfer @entity {
-  id: ID!
-  from: Bytes! # address
-  to: Bytes! # address
-  value: BigInt! # uint256
-}
-type TestTokenApproval @entity {
-  id: ID!
-  owner: Bytes! # address
-  spender: Bytes! # address
-  value: BigInt! # uint256
-}
-
-type MinterAdded @entity {
-  id: ID!
-  account: Bytes! # address
-}
-
-type MinterRemoved @entity {
-  id: ID!
-  account: Bytes! # address
-}
-
-type TestTokenTransfer @entity {
-  id: ID!
-  from: Bytes! # address
-  to: Bytes! # address
-  value: BigInt! # uint256
-}
-type StakeManagerOwnershipTransferred @entity {
-  id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-}
-
-type RootChainChanged @entity {
-  id: ID!
-  previousRootChain: Bytes! # address
-  newRootChain: Bytes! # address
-}
-type ValidatorShareApproval @entity {
-  id: ID!
-  owner: Bytes! # address
-  spender: Bytes! # address
-  value: BigInt! # uint256
-}
-
-type ValidatorShareOwnershipTransferred @entity {
-  id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-}
-
-type ValidatorShareTransfer @entity {
-  id: ID!
-  from: Bytes! # address
-  to: Bytes! # address
-  value: BigInt! # uint256
-}
-type MaxErc20DepositUpdate @entity {
-  id: ID!
-  oldLimit: BigInt! # uint256
-  newLimit: BigInt! # uint256
-}
-
-type NewDepositBlock @entity {
-  id: ID!
-  owner: Bytes! # address
-  token: Bytes! # address
-  amountOrNFTId: BigInt! # uint256
-  depositBlockId: BigInt! # uint256
-}
-
-type DepositManagerOwnershipTransferred @entity {
-  id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-}

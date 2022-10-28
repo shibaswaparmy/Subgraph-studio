@@ -1,7 +1,11 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "_registry", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "_registry",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -211,7 +215,7 @@
         "type": "address"
       }
     ],
-    "name": "StakingInfoOwnershipTransferred",
+    "name": "OwnershipTransferred",
     "type": "event"
   },
   {
@@ -647,12 +651,12 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "getAccountStateRoot",
+    "name": "isOwner",
     "outputs": [
       {
-        "internalType": "bytes32",
-        "name": "accountStateRoot",
-        "type": "bytes32"
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "payable": false,
@@ -661,40 +665,12 @@
   },
   {
     "constant": true,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" }
-    ],
-    "name": "getStakerDetails",
-    "outputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "reward", "type": "uint256" },
-      {
-        "internalType": "uint256",
-        "name": "activationEpoch",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "deactivationEpoch",
-        "type": "uint256"
-      },
-      { "internalType": "address", "name": "signer", "type": "address" },
-      { "internalType": "uint256", "name": "_status", "type": "uint256" }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" }
-    ],
-    "name": "getValidatorContractAddress",
+    "inputs": [],
+    "name": "owner",
     "outputs": [
       {
         "internalType": "address",
-        "name": "ValidatorContract",
+        "name": "",
         "type": "address"
       }
     ],
@@ -705,8 +681,59 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "isOwner",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "name": "registry",
+    "outputs": [
+      {
+        "internalType": "contract Registry",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "validatorNonce",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -714,10 +741,18 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "fee", "type": "uint256" }
+      {
+        "internalType": "uint256[]",
+        "name": "validatorIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "nonces",
+        "type": "uint256[]"
+      }
     ],
-    "name": "logClaimFee",
+    "name": "updateNonce",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -726,11 +761,98 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "totalAmount", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "signer",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signerPubkey",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "activationEpoch",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
     ],
-    "name": "logClaimRewards",
+    "name": "logStaked",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "name": "logUnstaked",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deactivationEpoch",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "logUnstakeInit",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -741,17 +863,51 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "newValidatorId",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "oldSigner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "newSigner",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signerPubkey",
+        "type": "bytes"
+      }
+    ],
+    "name": "logSignerChange",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "oldValidatorId",
+        "name": "amount",
         "type": "uint256"
       },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
     ],
-    "name": "logConfirmAuction",
+    "name": "logRestaked",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -760,62 +916,103 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "rewards", "type": "uint256" }
-    ],
-    "name": "logDelegatorClaimRewards",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "totalStaked", "type": "uint256" }
-    ],
-    "name": "logDelegatorRestaked",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "logDelegatorUnstaked",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "newDynasty", "type": "uint256" },
-      { "internalType": "uint256", "name": "oldDynasty", "type": "uint256" }
-    ],
-    "name": "logDynastyValueChange",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "uint256", "name": "exitEpoch", "type": "uint256" },
-      { "internalType": "address", "name": "signer", "type": "address" }
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "exitEpoch",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "signer",
+        "type": "address"
+      }
     ],
     "name": "logJailed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "signer",
+        "type": "address"
+      }
+    ],
+    "name": "logUnjailed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "logSlashed",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newThreshold",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "oldThreshold",
+        "type": "uint256"
+      }
+    ],
+    "name": "logThresholdChange",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newDynasty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "oldDynasty",
+        "type": "uint256"
+      }
+    ],
+    "name": "logDynastyValueChange",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -844,21 +1041,16 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "total", "type": "uint256" }
-    ],
-    "name": "logRestaked",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "newReward", "type": "uint256" },
-      { "internalType": "uint256", "name": "oldReward", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "newReward",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "oldReward",
+        "type": "uint256"
+      }
     ],
     "name": "logRewardUpdate",
     "outputs": [],
@@ -869,61 +1061,11 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "tokens", "type": "uint256" }
-    ],
-    "name": "logShareBurned",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "tokens", "type": "uint256" }
-    ],
-    "name": "logShareMinted",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "address", "name": "oldSigner", "type": "address" },
-      { "internalType": "address", "name": "newSigner", "type": "address" },
-      { "internalType": "bytes", "name": "signerPubkey", "type": "bytes" }
-    ],
-    "name": "logSignerChange",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "logSlashed",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      }
     ],
     "name": "logStakeUpdate",
     "outputs": [],
@@ -934,18 +1076,23 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "signer", "type": "address" },
-      { "internalType": "bytes", "name": "signerPubkey", "type": "bytes" },
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
       {
         "internalType": "uint256",
-        "name": "activationEpoch",
+        "name": "validatorId",
         "type": "uint256"
       },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "total", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalAmount",
+        "type": "uint256"
+      }
     ],
-    "name": "logStaked",
+    "name": "logClaimRewards",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -954,9 +1101,21 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "auctionAmount", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "auctionAmount",
+        "type": "uint256"
+      }
     ],
     "name": "logStartAuction",
     "outputs": [],
@@ -967,10 +1126,23 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "newThreshold", "type": "uint256" },
-      { "internalType": "uint256", "name": "oldThreshold", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "newValidatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "oldValidatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
     ],
-    "name": "logThresholdChange",
+    "name": "logConfirmAuction",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -979,8 +1151,16 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "fee", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "fee",
+        "type": "uint256"
+      }
     ],
     "name": "logTopUpFee",
     "outputs": [],
@@ -991,28 +1171,151 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "address", "name": "signer", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "fee",
+        "type": "uint256"
+      }
     ],
-    "name": "logUnjailed",
+    "name": "logClaimFee",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStakerDetails",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "reward",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "activationEpoch",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "deactivationEpoch",
         "type": "uint256"
       },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "signer",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_status",
+        "type": "uint256"
+      }
     ],
-    "name": "logUnstakeInit",
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      }
+    ],
+    "name": "totalValidatorStake",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorStake",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getAccountStateRoot",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "accountStateRoot",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getValidatorContractAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "ValidatorContract",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "logShareMinted",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1021,12 +1324,28 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "total", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokens",
+        "type": "uint256"
+      }
     ],
-    "name": "logUnstaked",
+    "name": "logShareBurned",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1035,7 +1354,86 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rewards",
+        "type": "uint256"
+      }
+    ],
+    "name": "logDelegatorClaimRewards",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalStaked",
+        "type": "uint256"
+      }
+    ],
+    "name": "logDelegatorRestaked",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "logDelegatorUnstaked",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "validatorId",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "newCommissionRate",
@@ -1051,84 +1449,6 @@
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "registry",
-    "outputs": [
-      { "internalType": "contract Registry", "name": "", "type": "address" }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "renounceOwnership",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      { "internalType": "uint256", "name": "validatorId", "type": "uint256" }
-    ],
-    "name": "totalValidatorStake",
-    "outputs": [
-      { "internalType": "uint256", "name": "validatorStake", "type": "uint256" }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
-    ],
-    "name": "transferOwnership",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "validatorIds",
-        "type": "uint256[]"
-      },
-      { "internalType": "uint256[]", "name": "nonces", "type": "uint256[]" }
-    ],
-    "name": "updateNonce",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "validatorNonce",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "payable": false,
-    "stateMutability": "view",
     "type": "function"
   }
 ]

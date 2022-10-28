@@ -262,177 +262,6 @@ export class Registry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  getChildChainAndStateSender(): Registry__getChildChainAndStateSenderResult {
-    let result = super.call(
-      "getChildChainAndStateSender",
-      "getChildChainAndStateSender():(address,address)",
-      []
-    );
-
-    return new Registry__getChildChainAndStateSenderResult(
-      result[0].toAddress(),
-      result[1].toAddress()
-    );
-  }
-
-  try_getChildChainAndStateSender(): ethereum.CallResult<
-    Registry__getChildChainAndStateSenderResult
-  > {
-    let result = super.tryCall(
-      "getChildChainAndStateSender",
-      "getChildChainAndStateSender():(address,address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new Registry__getChildChainAndStateSenderResult(
-        value[0].toAddress(),
-        value[1].toAddress()
-      )
-    );
-  }
-
-  getDepositManagerAddress(): Address {
-    let result = super.call(
-      "getDepositManagerAddress",
-      "getDepositManagerAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getDepositManagerAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getDepositManagerAddress",
-      "getDepositManagerAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getSlashingManagerAddress(): Address {
-    let result = super.call(
-      "getSlashingManagerAddress",
-      "getSlashingManagerAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getSlashingManagerAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getSlashingManagerAddress",
-      "getSlashingManagerAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getStakeManagerAddress(): Address {
-    let result = super.call(
-      "getStakeManagerAddress",
-      "getStakeManagerAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getStakeManagerAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getStakeManagerAddress",
-      "getStakeManagerAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getValidatorShareAddress(): Address {
-    let result = super.call(
-      "getValidatorShareAddress",
-      "getValidatorShareAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getValidatorShareAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getValidatorShareAddress",
-      "getValidatorShareAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getWethTokenAddress(): Address {
-    let result = super.call(
-      "getWethTokenAddress",
-      "getWethTokenAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getWethTokenAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getWethTokenAddress",
-      "getWethTokenAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getWithdrawManagerAddress(): Address {
-    let result = super.call(
-      "getWithdrawManagerAddress",
-      "getWithdrawManagerAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getWithdrawManagerAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getWithdrawManagerAddress",
-      "getWithdrawManagerAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
   governance(): Address {
     let result = super.call("governance", "governance():(address)", []);
 
@@ -448,29 +277,6 @@ export class Registry extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  isChildTokenErc721(childToken: Address): boolean {
-    let result = super.call(
-      "isChildTokenErc721",
-      "isChildTokenErc721(address):(bool)",
-      [ethereum.Value.fromAddress(childToken)]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isChildTokenErc721(childToken: Address): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isChildTokenErc721",
-      "isChildTokenErc721(address):(bool)",
-      [ethereum.Value.fromAddress(childToken)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
   isERC721(param0: Address): boolean {
     let result = super.call("isERC721", "isERC721(address):(bool)", [
       ethereum.Value.fromAddress(param0)
@@ -483,75 +289,6 @@ export class Registry extends ethereum.SmartContract {
     let result = super.tryCall("isERC721", "isERC721(address):(bool)", [
       ethereum.Value.fromAddress(param0)
     ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isTokenMapped(_token: Address): boolean {
-    let result = super.call("isTokenMapped", "isTokenMapped(address):(bool)", [
-      ethereum.Value.fromAddress(_token)
-    ]);
-
-    return result[0].toBoolean();
-  }
-
-  try_isTokenMapped(_token: Address): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isTokenMapped",
-      "isTokenMapped(address):(bool)",
-      [ethereum.Value.fromAddress(_token)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isTokenMappedAndGetPredicate(_token: Address): Address {
-    let result = super.call(
-      "isTokenMappedAndGetPredicate",
-      "isTokenMappedAndGetPredicate(address):(address)",
-      [ethereum.Value.fromAddress(_token)]
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_isTokenMappedAndGetPredicate(
-    _token: Address
-  ): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "isTokenMappedAndGetPredicate",
-      "isTokenMappedAndGetPredicate(address):(address)",
-      [ethereum.Value.fromAddress(_token)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  isTokenMappedAndIsErc721(_token: Address): boolean {
-    let result = super.call(
-      "isTokenMappedAndIsErc721",
-      "isTokenMappedAndIsErc721(address):(bool)",
-      [ethereum.Value.fromAddress(_token)]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isTokenMappedAndIsErc721(_token: Address): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isTokenMappedAndIsErc721",
-      "isTokenMappedAndIsErc721(address):(bool)",
-      [ethereum.Value.fromAddress(_token)]
-    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -623,6 +360,269 @@ export class Registry extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
+
+  getValidatorShareAddress(): Address {
+    let result = super.call(
+      "getValidatorShareAddress",
+      "getValidatorShareAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getValidatorShareAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getValidatorShareAddress",
+      "getValidatorShareAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getWethTokenAddress(): Address {
+    let result = super.call(
+      "getWethTokenAddress",
+      "getWethTokenAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getWethTokenAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getWethTokenAddress",
+      "getWethTokenAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getDepositManagerAddress(): Address {
+    let result = super.call(
+      "getDepositManagerAddress",
+      "getDepositManagerAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getDepositManagerAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getDepositManagerAddress",
+      "getDepositManagerAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getStakeManagerAddress(): Address {
+    let result = super.call(
+      "getStakeManagerAddress",
+      "getStakeManagerAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getStakeManagerAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getStakeManagerAddress",
+      "getStakeManagerAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getSlashingManagerAddress(): Address {
+    let result = super.call(
+      "getSlashingManagerAddress",
+      "getSlashingManagerAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getSlashingManagerAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getSlashingManagerAddress",
+      "getSlashingManagerAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getWithdrawManagerAddress(): Address {
+    let result = super.call(
+      "getWithdrawManagerAddress",
+      "getWithdrawManagerAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getWithdrawManagerAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getWithdrawManagerAddress",
+      "getWithdrawManagerAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getChildChainAndStateSender(): Registry__getChildChainAndStateSenderResult {
+    let result = super.call(
+      "getChildChainAndStateSender",
+      "getChildChainAndStateSender():(address,address)",
+      []
+    );
+
+    return new Registry__getChildChainAndStateSenderResult(
+      result[0].toAddress(),
+      result[1].toAddress()
+    );
+  }
+
+  try_getChildChainAndStateSender(): ethereum.CallResult<
+    Registry__getChildChainAndStateSenderResult
+  > {
+    let result = super.tryCall(
+      "getChildChainAndStateSender",
+      "getChildChainAndStateSender():(address,address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new Registry__getChildChainAndStateSenderResult(
+        value[0].toAddress(),
+        value[1].toAddress()
+      )
+    );
+  }
+
+  isTokenMapped(_token: Address): boolean {
+    let result = super.call("isTokenMapped", "isTokenMapped(address):(bool)", [
+      ethereum.Value.fromAddress(_token)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_isTokenMapped(_token: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTokenMapped",
+      "isTokenMapped(address):(bool)",
+      [ethereum.Value.fromAddress(_token)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isTokenMappedAndIsErc721(_token: Address): boolean {
+    let result = super.call(
+      "isTokenMappedAndIsErc721",
+      "isTokenMappedAndIsErc721(address):(bool)",
+      [ethereum.Value.fromAddress(_token)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isTokenMappedAndIsErc721(_token: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isTokenMappedAndIsErc721",
+      "isTokenMappedAndIsErc721(address):(bool)",
+      [ethereum.Value.fromAddress(_token)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  isTokenMappedAndGetPredicate(_token: Address): Address {
+    let result = super.call(
+      "isTokenMappedAndGetPredicate",
+      "isTokenMappedAndGetPredicate(address):(address)",
+      [ethereum.Value.fromAddress(_token)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_isTokenMappedAndGetPredicate(
+    _token: Address
+  ): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "isTokenMappedAndGetPredicate",
+      "isTokenMappedAndGetPredicate(address):(address)",
+      [ethereum.Value.fromAddress(_token)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  isChildTokenErc721(childToken: Address): boolean {
+    let result = super.call(
+      "isChildTokenErc721",
+      "isChildTokenErc721(address):(bool)",
+      [ethereum.Value.fromAddress(childToken)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isChildTokenErc721(childToken: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isChildTokenErc721",
+      "isChildTokenErc721(address):(bool)",
+      [ethereum.Value.fromAddress(childToken)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
 }
 
 export class ConstructorCall extends ethereum.Call {
@@ -651,6 +651,78 @@ export class ConstructorCall__Outputs {
   _call: ConstructorCall;
 
   constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateContractMapCall extends ethereum.Call {
+  get inputs(): UpdateContractMapCall__Inputs {
+    return new UpdateContractMapCall__Inputs(this);
+  }
+
+  get outputs(): UpdateContractMapCall__Outputs {
+    return new UpdateContractMapCall__Outputs(this);
+  }
+}
+
+export class UpdateContractMapCall__Inputs {
+  _call: UpdateContractMapCall;
+
+  constructor(call: UpdateContractMapCall) {
+    this._call = call;
+  }
+
+  get _key(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get _address(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class UpdateContractMapCall__Outputs {
+  _call: UpdateContractMapCall;
+
+  constructor(call: UpdateContractMapCall) {
+    this._call = call;
+  }
+}
+
+export class MapTokenCall extends ethereum.Call {
+  get inputs(): MapTokenCall__Inputs {
+    return new MapTokenCall__Inputs(this);
+  }
+
+  get outputs(): MapTokenCall__Outputs {
+    return new MapTokenCall__Outputs(this);
+  }
+}
+
+export class MapTokenCall__Inputs {
+  _call: MapTokenCall;
+
+  constructor(call: MapTokenCall) {
+    this._call = call;
+  }
+
+  get _rootToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _childToken(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get _isERC721(): boolean {
+    return this._call.inputValues[2].value.toBoolean();
+  }
+}
+
+export class MapTokenCall__Outputs {
+  _call: MapTokenCall;
+
+  constructor(call: MapTokenCall) {
     this._call = call;
   }
 }
@@ -749,44 +821,6 @@ export class AddPredicateCall__Outputs {
   }
 }
 
-export class MapTokenCall extends ethereum.Call {
-  get inputs(): MapTokenCall__Inputs {
-    return new MapTokenCall__Inputs(this);
-  }
-
-  get outputs(): MapTokenCall__Outputs {
-    return new MapTokenCall__Outputs(this);
-  }
-}
-
-export class MapTokenCall__Inputs {
-  _call: MapTokenCall;
-
-  constructor(call: MapTokenCall) {
-    this._call = call;
-  }
-
-  get _rootToken(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get _childToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get _isERC721(): boolean {
-    return this._call.inputValues[2].value.toBoolean();
-  }
-}
-
-export class MapTokenCall__Outputs {
-  _call: MapTokenCall;
-
-  constructor(call: MapTokenCall) {
-    this._call = call;
-  }
-}
-
 export class RemovePredicateCall extends ethereum.Call {
   get inputs(): RemovePredicateCall__Inputs {
     return new RemovePredicateCall__Inputs(this);
@@ -813,40 +847,6 @@ export class RemovePredicateCall__Outputs {
   _call: RemovePredicateCall;
 
   constructor(call: RemovePredicateCall) {
-    this._call = call;
-  }
-}
-
-export class UpdateContractMapCall extends ethereum.Call {
-  get inputs(): UpdateContractMapCall__Inputs {
-    return new UpdateContractMapCall__Inputs(this);
-  }
-
-  get outputs(): UpdateContractMapCall__Outputs {
-    return new UpdateContractMapCall__Outputs(this);
-  }
-}
-
-export class UpdateContractMapCall__Inputs {
-  _call: UpdateContractMapCall;
-
-  constructor(call: UpdateContractMapCall) {
-    this._call = call;
-  }
-
-  get _key(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-
-  get _address(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class UpdateContractMapCall__Outputs {
-  _call: UpdateContractMapCall;
-
-  constructor(call: UpdateContractMapCall) {
     this._call = call;
   }
 }

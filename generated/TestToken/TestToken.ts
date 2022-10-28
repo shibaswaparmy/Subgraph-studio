@@ -10,16 +10,16 @@ import {
   BigInt
 } from "@graphprotocol/graph-ts";
 
-export class TestTokenApproval extends ethereum.Event {
-  get params(): TestTokenApproval__Params {
-    return new TestTokenApproval__Params(this);
+export class Approval extends ethereum.Event {
+  get params(): Approval__Params {
+    return new Approval__Params(this);
   }
 }
 
-export class TestTokenApproval__Params {
-  _event: TestTokenApproval;
+export class Approval__Params {
+  _event: Approval;
 
-  constructor(event: TestTokenApproval) {
+  constructor(event: Approval) {
     this._event = event;
   }
 
@@ -72,16 +72,16 @@ export class MinterRemoved__Params {
   }
 }
 
-export class TestTokenTransfer extends ethereum.Event {
-  get params(): TestTokenTransfer__Params {
-    return new TestTokenTransfer__Params(this);
+export class Transfer extends ethereum.Event {
+  get params(): Transfer__Params {
+    return new Transfer__Params(this);
   }
 }
 
-export class TestTokenTransfer__Params {
-  _event: TestTokenTransfer;
+export class Transfer__Params {
+  _event: Transfer;
 
-  constructor(event: TestTokenTransfer) {
+  constructor(event: Transfer) {
     this._event = event;
   }
 

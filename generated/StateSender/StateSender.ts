@@ -36,28 +36,6 @@ export class NewRegistration__Params {
   }
 }
 
-export class StateSenderOwnershipTransferred extends ethereum.Event {
-  get params(): StateSenderOwnershipTransferred__Params {
-    return new StateSenderOwnershipTransferred__Params(this);
-  }
-}
-
-export class StateSenderOwnershipTransferred__Params {
-  _event: StateSenderOwnershipTransferred;
-
-  constructor(event: StateSenderOwnershipTransferred) {
-    this._event = event;
-  }
-
-  get previousOwner(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get newOwner(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-}
-
 export class RegistrationUpdated extends ethereum.Event {
   get params(): RegistrationUpdated__Params {
     return new RegistrationUpdated__Params(this);
@@ -110,6 +88,28 @@ export class StateSynced__Params {
   }
 }
 
+export class OwnershipTransferred extends ethereum.Event {
+  get params(): OwnershipTransferred__Params {
+    return new OwnershipTransferred__Params(this);
+  }
+}
+
+export class OwnershipTransferred__Params {
+  _event: OwnershipTransferred;
+
+  constructor(event: OwnershipTransferred) {
+    this._event = event;
+  }
+
+  get previousOwner(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get newOwner(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+}
+
 export class StateSender extends ethereum.SmartContract {
   static bind(address: Address): StateSender {
     return new StateSender("StateSender", address);
@@ -130,21 +130,6 @@ export class StateSender extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  isOwner(): boolean {
-    let result = super.call("isOwner", "isOwner():(bool)", []);
-
-    return result[0].toBoolean();
-  }
-
-  try_isOwner(): ethereum.CallResult<boolean> {
-    let result = super.tryCall("isOwner", "isOwner():(bool)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
   owner(): Address {
     let result = super.call("owner", "owner():(address)", []);
 
@@ -158,6 +143,21 @@ export class StateSender extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  isOwner(): boolean {
+    let result = super.call("isOwner", "isOwner():(bool)", []);
+
+    return result[0].toBoolean();
+  }
+
+  try_isOwner(): ethereum.CallResult<boolean> {
+    let result = super.tryCall("isOwner", "isOwner():(bool)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   registrations(param0: Address): Address {
@@ -181,66 +181,6 @@ export class StateSender extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-}
-
-export class RegisterCall extends ethereum.Call {
-  get inputs(): RegisterCall__Inputs {
-    return new RegisterCall__Inputs(this);
-  }
-
-  get outputs(): RegisterCall__Outputs {
-    return new RegisterCall__Outputs(this);
-  }
-}
-
-export class RegisterCall__Inputs {
-  _call: RegisterCall;
-
-  constructor(call: RegisterCall) {
-    this._call = call;
-  }
-
-  get sender(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get receiver(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class RegisterCall__Outputs {
-  _call: RegisterCall;
-
-  constructor(call: RegisterCall) {
-    this._call = call;
-  }
-}
-
-export class RenounceOwnershipCall extends ethereum.Call {
-  get inputs(): RenounceOwnershipCall__Inputs {
-    return new RenounceOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): RenounceOwnershipCall__Outputs {
-    return new RenounceOwnershipCall__Outputs(this);
-  }
-}
-
-export class RenounceOwnershipCall__Inputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class RenounceOwnershipCall__Outputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
   }
 }
 
@@ -274,6 +214,66 @@ export class SyncStateCall__Outputs {
   _call: SyncStateCall;
 
   constructor(call: SyncStateCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
+  }
+}
+
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RegisterCall extends ethereum.Call {
+  get inputs(): RegisterCall__Inputs {
+    return new RegisterCall__Inputs(this);
+  }
+
+  get outputs(): RegisterCall__Outputs {
+    return new RegisterCall__Outputs(this);
+  }
+}
+
+export class RegisterCall__Inputs {
+  _call: RegisterCall;
+
+  constructor(call: RegisterCall) {
+    this._call = call;
+  }
+
+  get sender(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class RegisterCall__Outputs {
+  _call: RegisterCall;
+
+  constructor(call: RegisterCall) {
     this._call = call;
   }
 }

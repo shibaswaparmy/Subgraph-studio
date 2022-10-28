@@ -100,16 +100,46 @@ export class ShareBurnedWithId__Params {
   }
 }
 
-export class EventsHubUpdateCommissionRate extends ethereum.Event {
-  get params(): EventsHubUpdateCommissionRate__Params {
-    return new EventsHubUpdateCommissionRate__Params(this);
+export class SharesTransfer extends ethereum.Event {
+  get params(): SharesTransfer__Params {
+    return new SharesTransfer__Params(this);
   }
 }
 
-export class EventsHubUpdateCommissionRate__Params {
-  _event: EventsHubUpdateCommissionRate;
+export class SharesTransfer__Params {
+  _event: SharesTransfer;
 
-  constructor(event: EventsHubUpdateCommissionRate) {
+  constructor(event: SharesTransfer) {
+    this._event = event;
+  }
+
+  get validatorId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get from(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get to(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get value(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
+export class UpdateCommissionRate extends ethereum.Event {
+  get params(): UpdateCommissionRate__Params {
+    return new UpdateCommissionRate__Params(this);
+  }
+}
+
+export class UpdateCommissionRate__Params {
+  _event: UpdateCommissionRate;
+
+  constructor(event: UpdateCommissionRate) {
     this._event = event;
   }
 
@@ -299,6 +329,48 @@ export class LogShareBurnedWithIdCall__Outputs {
   _call: LogShareBurnedWithIdCall;
 
   constructor(call: LogShareBurnedWithIdCall) {
+    this._call = call;
+  }
+}
+
+export class LogSharesTransferCall extends ethereum.Call {
+  get inputs(): LogSharesTransferCall__Inputs {
+    return new LogSharesTransferCall__Inputs(this);
+  }
+
+  get outputs(): LogSharesTransferCall__Outputs {
+    return new LogSharesTransferCall__Outputs(this);
+  }
+}
+
+export class LogSharesTransferCall__Inputs {
+  _call: LogSharesTransferCall;
+
+  constructor(call: LogSharesTransferCall) {
+    this._call = call;
+  }
+
+  get validatorId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get from(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get to(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get value(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class LogSharesTransferCall__Outputs {
+  _call: LogSharesTransferCall;
+
+  constructor(call: LogSharesTransferCall) {
     this._call = call;
   }
 }

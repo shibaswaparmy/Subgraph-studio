@@ -110,16 +110,16 @@ export class ExitUpdated__Params {
   }
 }
 
-export class WithdrawManagerOwnershipTransferred extends ethereum.Event {
-  get params(): WithdrawManagerOwnershipTransferred__Params {
-    return new WithdrawManagerOwnershipTransferred__Params(this);
+export class OwnershipTransferred extends ethereum.Event {
+  get params(): OwnershipTransferred__Params {
+    return new OwnershipTransferred__Params(this);
   }
 }
 
-export class WithdrawManagerOwnershipTransferred__Params {
-  _event: WithdrawManagerOwnershipTransferred;
+export class OwnershipTransferred__Params {
+  _event: OwnershipTransferred;
 
-  constructor(event: WithdrawManagerOwnershipTransferred) {
+  constructor(event: OwnershipTransferred) {
     this._event = event;
   }
 
@@ -478,6 +478,130 @@ export class DefaultCall__Outputs {
   }
 }
 
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
+  }
+}
+
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class CreateExitQueueCall extends ethereum.Call {
+  get inputs(): CreateExitQueueCall__Inputs {
+    return new CreateExitQueueCall__Inputs(this);
+  }
+
+  get outputs(): CreateExitQueueCall__Outputs {
+    return new CreateExitQueueCall__Outputs(this);
+  }
+}
+
+export class CreateExitQueueCall__Inputs {
+  _call: CreateExitQueueCall;
+
+  constructor(call: CreateExitQueueCall) {
+    this._call = call;
+  }
+
+  get token(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class CreateExitQueueCall__Outputs {
+  _call: CreateExitQueueCall;
+
+  constructor(call: CreateExitQueueCall) {
+    this._call = call;
+  }
+}
+
+export class StartExitWithDepositedTokensCall extends ethereum.Call {
+  get inputs(): StartExitWithDepositedTokensCall__Inputs {
+    return new StartExitWithDepositedTokensCall__Inputs(this);
+  }
+
+  get outputs(): StartExitWithDepositedTokensCall__Outputs {
+    return new StartExitWithDepositedTokensCall__Outputs(this);
+  }
+}
+
+export class StartExitWithDepositedTokensCall__Inputs {
+  _call: StartExitWithDepositedTokensCall;
+
+  constructor(call: StartExitWithDepositedTokensCall) {
+    this._call = call;
+  }
+
+  get depositId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get token(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amountOrToken(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class StartExitWithDepositedTokensCall__Outputs {
+  _call: StartExitWithDepositedTokensCall;
+
+  constructor(call: StartExitWithDepositedTokensCall) {
+    this._call = call;
+  }
+}
+
 export class AddExitToQueueCall extends ethereum.Call {
   get inputs(): AddExitToQueueCall__Inputs {
     return new AddExitToQueueCall__Inputs(this);
@@ -532,48 +656,6 @@ export class AddExitToQueueCall__Outputs {
   }
 }
 
-export class AddInputCall extends ethereum.Call {
-  get inputs(): AddInputCall__Inputs {
-    return new AddInputCall__Inputs(this);
-  }
-
-  get outputs(): AddInputCall__Outputs {
-    return new AddInputCall__Outputs(this);
-  }
-}
-
-export class AddInputCall__Inputs {
-  _call: AddInputCall;
-
-  constructor(call: AddInputCall) {
-    this._call = call;
-  }
-
-  get exitId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get age(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get utxoOwner(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-
-  get token(): Address {
-    return this._call.inputValues[3].value.toAddress();
-  }
-}
-
-export class AddInputCall__Outputs {
-  _call: AddInputCall;
-
-  constructor(call: AddInputCall) {
-    this._call = call;
-  }
-}
-
 export class ChallengeExitCall extends ethereum.Call {
   get inputs(): ChallengeExitCall__Inputs {
     return new ChallengeExitCall__Inputs(this);
@@ -612,36 +694,6 @@ export class ChallengeExitCall__Outputs {
   _call: ChallengeExitCall;
 
   constructor(call: ChallengeExitCall) {
-    this._call = call;
-  }
-}
-
-export class CreateExitQueueCall extends ethereum.Call {
-  get inputs(): CreateExitQueueCall__Inputs {
-    return new CreateExitQueueCall__Inputs(this);
-  }
-
-  get outputs(): CreateExitQueueCall__Outputs {
-    return new CreateExitQueueCall__Outputs(this);
-  }
-}
-
-export class CreateExitQueueCall__Inputs {
-  _call: CreateExitQueueCall;
-
-  constructor(call: CreateExitQueueCall) {
-    this._call = call;
-  }
-
-  get token(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class CreateExitQueueCall__Outputs {
-  _call: CreateExitQueueCall;
-
-  constructor(call: CreateExitQueueCall) {
     this._call = call;
   }
 }
@@ -706,96 +758,44 @@ export class ProcessExitsBatchCall__Outputs {
   }
 }
 
-export class RenounceOwnershipCall extends ethereum.Call {
-  get inputs(): RenounceOwnershipCall__Inputs {
-    return new RenounceOwnershipCall__Inputs(this);
+export class AddInputCall extends ethereum.Call {
+  get inputs(): AddInputCall__Inputs {
+    return new AddInputCall__Inputs(this);
   }
 
-  get outputs(): RenounceOwnershipCall__Outputs {
-    return new RenounceOwnershipCall__Outputs(this);
-  }
-}
-
-export class RenounceOwnershipCall__Inputs {
-  _call: RenounceOwnershipCall;
-
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
+  get outputs(): AddInputCall__Outputs {
+    return new AddInputCall__Outputs(this);
   }
 }
 
-export class RenounceOwnershipCall__Outputs {
-  _call: RenounceOwnershipCall;
+export class AddInputCall__Inputs {
+  _call: AddInputCall;
 
-  constructor(call: RenounceOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class StartExitWithDepositedTokensCall extends ethereum.Call {
-  get inputs(): StartExitWithDepositedTokensCall__Inputs {
-    return new StartExitWithDepositedTokensCall__Inputs(this);
-  }
-
-  get outputs(): StartExitWithDepositedTokensCall__Outputs {
-    return new StartExitWithDepositedTokensCall__Outputs(this);
-  }
-}
-
-export class StartExitWithDepositedTokensCall__Inputs {
-  _call: StartExitWithDepositedTokensCall;
-
-  constructor(call: StartExitWithDepositedTokensCall) {
+  constructor(call: AddInputCall) {
     this._call = call;
   }
 
-  get depositId(): BigInt {
+  get exitId(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
   }
 
+  get age(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get utxoOwner(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
   get token(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get amountOrToken(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+    return this._call.inputValues[3].value.toAddress();
   }
 }
 
-export class StartExitWithDepositedTokensCall__Outputs {
-  _call: StartExitWithDepositedTokensCall;
+export class AddInputCall__Outputs {
+  _call: AddInputCall;
 
-  constructor(call: StartExitWithDepositedTokensCall) {
-    this._call = call;
-  }
-}
-
-export class TransferOwnershipCall extends ethereum.Call {
-  get inputs(): TransferOwnershipCall__Inputs {
-    return new TransferOwnershipCall__Inputs(this);
-  }
-
-  get outputs(): TransferOwnershipCall__Outputs {
-    return new TransferOwnershipCall__Outputs(this);
-  }
-}
-
-export class TransferOwnershipCall__Inputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-
-  get newOwner(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class TransferOwnershipCall__Outputs {
-  _call: TransferOwnershipCall;
-
-  constructor(call: TransferOwnershipCall) {
+  constructor(call: AddInputCall) {
     this._call = call;
   }
 }

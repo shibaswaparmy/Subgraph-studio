@@ -1,0 +1,55 @@
+{
+  "network": "mainnet",
+  "subgraphId": "QmXhZa2bzqhXCU4bMQunbY1rPeT5aVSVppciojDRikuwo1",
+  "graftingStartBlock": 10167760,
+  "contracts": {
+    "rootChain": {
+      "address": "0x86E4Dc95c7FBdBf52e33D563BbDB00823894C287",
+      "startBlock": 10167725
+    },
+    "stateSender": {
+      "address": "0x28e4F3a7f651294B9564800b2D01f35189A5bFbE",
+      "startBlock": 10167763
+    },
+    "withdrawManager": {
+      "address": "0x2A88696e0fFA76bAA1338F2C74497cC013495922",
+      "startBlock": 11286726
+    },
+    "eventsHub": {
+      "address": "0x6dF5CB08d3f0193C768C8A01f42ac4424DC5086b",
+      "startBlock": 12115587
+    },
+    "rootChainManager": {
+      "address": "0xA0c68C638235ee32657e8f720a23ceC1bFc77C77",
+      "startBlock": 10735437
+    },
+    "stakingInfo": {
+      "address": "0xa59C847Bd5aC0172Ff4FE912C5d29E5A71A7512B",
+      "startBlock": 10342572
+    },
+    "stakingNft": {
+      "address": "0x47Cbe25BbDB40a774cC37E1dA92d10C2C7Ec897F",
+      "startBlock": 10342574
+    },
+    "maticTokenContract": {
+      "address": "0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0",
+      "startBlock": 13977920
+    },
+    "registry": {
+      "address": "0x33a02E6cC863D393d6Bf231B697b82F6e499cA71",
+      "startBlock": 10167715
+    },
+    "decoderForPoSPortalData": {
+      "address": "0x13E301F8d9563e3D8d48F1d21aE8110B22558cd5"
+    },
+    "fxERC20RootTunnel": {
+      "startBlock": 13241945
+    },
+    "fxERC721RootTunnel": {
+      "startBlock": 13242431
+    },
+    "fxERC1155RootTunnel": {
+      "startBlock": 13242936
+    }
+  }
+}
