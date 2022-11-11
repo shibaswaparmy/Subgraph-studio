@@ -8,7 +8,7 @@ dataSources:
     name: Rootchain
     network: goerli
     source:
-      address: "0x86ea86DeBd4E219Da11Ce765D75B5C84EC0145b8"
+      address: "0x4ad853071d521363e3acbbbA83Ed4B1AE71e2bD5"
       abi: Rootchain
       startBlock: 7212445
     mapping:
@@ -29,7 +29,7 @@ dataSources:
     name: TestToken
     network: goerli
     source:
-      address: "0x809bbf767883277f6fdB8f378489B259A02fD7a7"
+      address: "0x561B0FCd4B4308b9B6b8673b5F37eD1bC371B4d1"
       abi: TestToken
       startBlock: 7212451
     mapping:
@@ -50,7 +50,7 @@ dataSources:
     name: WithdrawManager
     network: goerli
     source:
-      address: "0xb71387F060d58bA9943619C08fA450Fbf6D20219"
+      address: "0x610DB4556b72c55b010675B5B7e59C3Ef83e2a15"
       abi: WithdrawManager
       startBlock: 7212467
     mapping:
@@ -77,7 +77,7 @@ dataSources:
     name: RootChainManager
     network: goerli
     source:
-      address: "0x8D2A3ac67E80374B9B73C55Da3eeF6B4a7E52757"
+      address: "0x851B44a1e89fDEB685Cb7f2ce92107f9818B5A10"
       abi: RootChainManager
       startBlock: 7246537
     mapping:
@@ -101,7 +101,7 @@ dataSources:
     name: Registry
     network: goerli
     source:
-      address: "0x446eAA6Ca8B098D7adF6DB1778193111bfcf1c56"
+      address: "0x20f9999E97c0B5A212E4D5BE164C8e1d6BD95Eda"
       abi: Registry
       startBlock: 7212443
     mapping:
@@ -122,7 +122,7 @@ dataSources:
     name: StateSender
     network: goerli
     source:
-      address: "0xd8AeE982658f85e97A4f9004CB816E285402B652"
+      address: "0x928720720B30CDaaB83f2Ee075464C0C0fC171ef"
       abi: StateSender
       startBlock: 7212462
     mapping:
@@ -150,7 +150,7 @@ dataSources:
     name: StakingInfo
     network: goerli
     source:
-      address: "0x29F804b573C0df4423ABE9027dF2E53ACDb4C05b"
+      address: "0x52c0027a73ED02963f21390e700e918C21287C73"
       abi: StakingInfo
       startBlock: 7212447
     mapping:
@@ -226,7 +226,7 @@ dataSources:
     name: StakingNft
     network: goerli
     source:
-      address: "0xE3570151628DC3fEb887363A13c515db0c844F4b"
+      address: "0x717FAC081af6baBe74549AdAC7C0b286f95a05c7"
       abi: StakingNft
       startBlock: 7212450
     mapping:
@@ -248,7 +248,7 @@ dataSources:
     name: EventsHub
     network: goerli
     source:
-      address: "0xeE50AeDa51A6C106a324a0535042946F24ecF463"
+      address: "0xe9616fB3863b598bf5a310FD905dD2a66Fe942A5"
       abi: EventsHub
       startBlock: 7212470
     mapping:
