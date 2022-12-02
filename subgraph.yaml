@@ -248,7 +248,7 @@ dataSources:
     name: EventsHub
     network: goerli
     source:
-      address: "0xCE7fDd02825a1573e2BB35c8faB674dcC13690ff"
+      address: "0x2bBd70e7BAd566C57B25f7deee5E8d30AD1Bfd6e"
       abi: EventsHub
       startBlock: 7958402
     mapping:
