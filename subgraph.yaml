@@ -8,9 +8,9 @@ dataSources:
     name: Rootchain
     network: goerli
     source:
-      address: "0xbF420Fc9a86a371dd4178c928DC60960B053593a"
+      address: "0xBd806A9544167e0B750DdF0161c33f02D0E585f6"
       abi: Rootchain
-      startBlock: 7958402
+      startBlock: 8097858	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -29,9 +29,9 @@ dataSources:
     name: TestToken
     network: goerli
     source:
-      address: "0x6543c6243857d8170E525f155B91f9Fe7dEA7CA6"
+      address: "0x9f1904010874026c21d4aaC79198FbDCed36BdeF"
       abi: TestToken
-      startBlock: 7958402
+      startBlock: 8097858	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -50,9 +50,9 @@ dataSources:
     name: WithdrawManager
     network: goerli
     source:
-      address: "0x8a92B277993b3196512BFD97eEcaBdE695692eAd"
+      address: "0x383BE2Ae6aCD1B107CDA5Ec390151DdFCe67f31D"
       abi: WithdrawManager
-      startBlock: 7958402
+      startBlock: 8097858	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -101,9 +101,9 @@ dataSources:
     name: Registry
     network: goerli
     source:
-      address: "0x0C756D14AC222a195f4331A822CFe10284236012"
+      address: "0xc544fa2687b22F06140d11Bb337cc063998a726C"
       abi: Registry
-      startBlock: 7958402
+      startBlock: 8097858	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -122,9 +122,9 @@ dataSources:
     name: StateSender
     network: goerli
     source:
-      address: "0x11D7631C3C343Fc2d93FD86F68114d60eF76dEc6"
+      address: "0xD81006c530eeF16a49e64a0fC61BCe0d727a5bC5"
       abi: StateSender
-      startBlock: 7958402
+      startBlock: 8097858	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -150,9 +150,9 @@ dataSources:
     name: StakingInfo
     network: goerli
     source:
-      address: "0x300F92CF5B74548B51B2680f892e047Ff416c52a"
+      address: "0xCF796101d03dd6A634Fd51b97603E4eEC3E9e464"
       abi: StakingInfo
-      startBlock: 7958402
+      startBlock: 8097858	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -226,9 +226,9 @@ dataSources:
     name: StakingNft
     network: goerli
     source:
-      address: "0x4fdfaF352A3B1F6Ad302F21Df182272cCE3cdE8e"
+      address: "0x775bC36645d2232F25d5c14780E2b66FFd9bF50B"
       abi: StakingNft
-      startBlock: 7958402
+      startBlock: 8097858	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -248,9 +248,9 @@ dataSources:
     name: EventsHub
     network: goerli
     source:
-      address: "0x2bBd70e7BAd566C57B25f7deee5E8d30AD1Bfd6e"
+      address: "0xB9f6655653CD0233e089414BA10d10D69b4D870b"
       abi: EventsHub
-      startBlock: 7958402
+      startBlock: 8097858	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
