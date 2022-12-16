@@ -10,7 +10,7 @@ dataSources:
     source:
       address: "0xBd806A9544167e0B750DdF0161c33f02D0E585f6"
       abi: Rootchain
-      startBlock: 8097858	
+      startBlock: 8078129	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -31,7 +31,7 @@ dataSources:
     source:
       address: "0x9f1904010874026c21d4aaC79198FbDCed36BdeF"
       abi: TestToken
-      startBlock: 8097858	
+      startBlock: 8078129	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -52,7 +52,7 @@ dataSources:
     source:
       address: "0x383BE2Ae6aCD1B107CDA5Ec390151DdFCe67f31D"
       abi: WithdrawManager
-      startBlock: 8097858	
+      startBlock: 8078129	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -79,7 +79,7 @@ dataSources:
     source:
       address: "0x588989690656589F02DB988df7B6B70680b16F67"
       abi: RootChainManager
-      startBlock: 8097858
+      startBlock: 8078129
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -103,7 +103,7 @@ dataSources:
     source:
       address: "0xc544fa2687b22F06140d11Bb337cc063998a726C"
       abi: Registry
-      startBlock: 8097858	
+      startBlock: 8078129	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -124,7 +124,7 @@ dataSources:
     source:
       address: "0xD81006c530eeF16a49e64a0fC61BCe0d727a5bC5"
       abi: StateSender
-      startBlock: 8097858	
+      startBlock: 8078129	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -152,7 +152,7 @@ dataSources:
     source:
       address: "0xCF796101d03dd6A634Fd51b97603E4eEC3E9e464"
       abi: StakingInfo
-      startBlock: 8097858	
+      startBlock: 8078129	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -228,7 +228,7 @@ dataSources:
     source:
       address: "0x775bC36645d2232F25d5c14780E2b66FFd9bF50B"
       abi: StakingNft
-      startBlock: 8097858	
+      startBlock: 8078129	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -250,7 +250,7 @@ dataSources:
     source:
       address: "0xB9f6655653CD0233e089414BA10d10D69b4D870b"
       abi: EventsHub
-      startBlock: 8097858	
+      startBlock: 8078129	
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
