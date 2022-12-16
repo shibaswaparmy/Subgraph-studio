@@ -77,9 +77,9 @@ dataSources:
     name: RootChainManager
     network: goerli
     source:
-      address: "0x44950f9CC954e5DAEC51dA67A994C28A137887F0"
+      address: "0x588989690656589F02DB988df7B6B70680b16F67"
       abi: RootChainManager
-      startBlock: 7848900
+      startBlock: 8097858
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
