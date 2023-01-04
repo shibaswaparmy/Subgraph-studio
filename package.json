@@ -1,5 +1,5 @@
 {
-  "name": "shibarium-419",
+  "name": "Shibarium-517",
   "license": "UNLICENSED",
   "scripts": {
     "lint": "eslint --ext .ts --ext .js --ext .json .eslintrc.js src abis",
@@ -7,10 +7,10 @@
     "graph": "graph",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ shibarium-419",
-    "create-local": "graph create --node http://localhost:8020/ shibarium-419",
-    "remove-local": "graph remove --node http://localhost:8020/ shibarium-419",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://127.0.0.1:5001 shibarium-419"
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ Shibarium-517",
+    "create-local": "graph create --node http://localhost:8020/ Shibarium-517",
+    "remove-local": "graph remove --node http://localhost:8020/ Shibarium-517",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://127.0.0.1:5001 Shibarium-517"
   },
   "dependencies": {
     "@graphprotocol/graph-ts": "^0.25",
